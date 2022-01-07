@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import { shallowCopyFromList } from 'ejs/lib/utils';
+import { acceptsArray } from 'expres/utils';
 import './App.css';
 
 function App() {
+
+  // create funtion for generating array
+  const regenerate = (length, min = 0, max = 1000) => {
+    let array = []
+    for(let i=0; i<length; i++){
+      array.push(Math.floor(Math.random()*(max-min) + min))
+    }
+    // console.log(array)
+    return array
+  }
+  // populate an array with random digits on page load
+  let array = regenerate(100,5,1000)
+  // create function for regenerating array on button click
+  const redoRandomArray = () => {
+    array = regenerate(100,5,1000)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={redoRandomArray}>Regenerate Array</button>
+      
+      <button>Merge Sort</button>
     </div>
   );
 }

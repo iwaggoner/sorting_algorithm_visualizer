@@ -16,3 +16,8 @@ Later version a user could import a list to be sorted
 ![Image of expected landing page](Sorting_Visualizer_front_page.png)
 **Signed In Page**
 ![Image of expected signed In Page](Sorting_Visualizer_signed_in_page.png)
+
+#### Installation Instructions
+**Fork and clone this repo**
+**Install npm globally on your computer**
+**Run `npm i` inside the '/client' folder**
