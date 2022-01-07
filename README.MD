@@ -13,9 +13,9 @@ Later version a user could import a list to be soreted
 
 #### Visualization of the webpage
 **Front Page**
-Sorting_Visualizer_front_page.png
+![Image of expected landing page](Sorting_Visualizer_front_page.png)
 **Signed In Page**
-Sorting_Visualizer_signed_in_page.png
+![Image of expected signed In Page](Sorting_Visualizer_signed_in_page.png)
 
 
 
