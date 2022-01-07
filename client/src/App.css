@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+ .bar {
+   width: 2px;
+   margin: 2px;
+   font-size: .5rem;
+   background-color: pink;
+ }
+ .flexContainer {
+   display: flex;
+ }

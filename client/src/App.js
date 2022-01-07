@@ -1,6 +1,6 @@
-import { shallowCopyFromList } from 'ejs/lib/utils';
-import { acceptsArray } from 'expres/utils';
 import './App.css';
+import Graph from './components/Graph'
+import { useState } from 'react'
 
 function App() {
 
@@ -10,21 +10,25 @@ function App() {
     for(let i=0; i<length; i++){
       array.push(Math.floor(Math.random()*(max-min) + min))
     }
-    // console.log(array)
+    console.log(array)
     return array
   }
-  // populate an array with random digits on page load
-  let array = regenerate(100,5,1000)
+  
   // create function for regenerating array on button click
   const redoRandomArray = () => {
-    array = regenerate(100,5,1000)
+    setArray(regenerate(100,5,1000))
   }
+
+  // State for array
+  const [array, setArray] = useState(regenerate(100,5,1000))
+
 
   return (
     <div className="App">
       <button onClick={redoRandomArray}>Regenerate Array</button>
-      
       <button>Merge Sort</button>
+
+      <Graph array={array}/>
     </div>
   );
 }
