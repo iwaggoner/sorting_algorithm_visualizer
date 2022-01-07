@@ -9,16 +9,10 @@ The first stage of the app will allow the user to load an arry and then sort wit
 The front end of this app will be React.js.
 Backend has not been decided yet as this will be majority front end code
 The Backend will save a user and password, and once siged in a user can favoirte a sort, or even a list they liked.
-Later version a user could import a list to be soreted
+Later version a user could import a list to be sorted
 
 #### Visualization of the webpage
 **Front Page**
 ![Image of expected landing page](Sorting_Visualizer_front_page.png)
 **Signed In Page**
 ![Image of expected signed In Page](Sorting_Visualizer_signed_in_page.png)
-
-
-
-#### Mike was here
-
-
