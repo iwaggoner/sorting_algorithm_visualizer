@@ -56,8 +56,10 @@ function App() {
     
     // Largest element is fixed, recur for remaining array
     bubbleSort(tempArray, n-1)
+  }
 
-    
+  const quickSort = () => {
+    let tempArray = array
   }
 
 
@@ -72,8 +74,9 @@ function App() {
     <div className="App">
       <button onClick={redoRandomArray}>Regenerate Array</button>
       <button onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</button>
-      <button>Quick Sort</button>
+      <button onClick={quickSort}>Quick Sort</button>
       <button>Merge Sort</button>
+      <button>Heap Sort</button>
 
       <Graph array={array}/>
     </div>
