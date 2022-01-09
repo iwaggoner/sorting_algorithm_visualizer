@@ -1,6 +1,7 @@
 import './App.css';
 import Graph from './components/Graph'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { acceptsArray } from 'expres/utils';
 
 function App() {
 
@@ -17,6 +18,14 @@ function App() {
     let temp = array[index1]
     array[index1] = array[index2]
     array[index2] = temp
+  }
+  // helper function to delay any line (helps for animation)
+  function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
   }
 
   // Bubble sort when press button
@@ -55,7 +64,7 @@ function App() {
         }
       }, 100)
     
-    // Largest element is fixed, recur for remaining array
+    // Largest element is moved to end, recur for remaining array
     bubbleSort(tempArray, n-1)
   }
 
@@ -65,19 +74,22 @@ function App() {
       let pivot = subArray[Math.floor((leftIndex + rightIndex)/2)]//middle element
       let i = leftIndex
       let j = rightIndex
-      while(i <= j){
-        while(subArray[i] < pivot){
-          i++//move i to the right until that element is greater than pivot (first element greater than pivot)
+      // setTimeout(()=>{
+        while(i <= j){
+          while(subArray[i] < pivot){
+            i++//move i to the right until that element is greater than pivot (first element greater than pivot)
+          }
+          while(subArray[j] > pivot){
+            j--//move j to the left until that element is less than pivot (first element less than pivot from left)
+          }
+          if(i <= j){
+            swap(subArray, i, j)//swap the two elements
+            setArray([...subArray])
+            i++
+            j--
+          }
         }
-        while(subArray[j] > pivot){
-          j--//move j to the left until that element is less than pivot (first element less than pivot from left)
-        }
-        if(i <= j){
-          swap(subArray, i, j)//swap the two elements
-          i++
-          j--
-        }
-      }
+      // }, 100)
       return i//return pivot position
     }
     // recursive function to sort each half of array over and over
@@ -94,16 +106,50 @@ function App() {
       }
       return subArray
     }
-    // run on input array
-    setArray([...divideAndConquer(array, 0, array.length - 1)])
+    //Go
+    divideAndConquer(array, 0, array.length - 1)
+  }
+
+  const mergeSort = (array) => {
+    //function for merging 2 sorted arrays
+    function merge(arrLeft, arrRight){
+      let arrResult = []
+      //Loop until one of the arrays is empty
+      while(arrLeft.length && arrRight.length){
+        //arrLeft and arrRight are sorted so we only have to look at [0] at a time
+        if(arrLeft[0] < arrRight[0]){
+          arrResult.push(arrLeft.shift())
+        } else {
+          arrResult.push(arrRight.shift())
+        }
+      }
+      // Only 1 of arrLeft or arrRight will be nonempty, so add it on and return
+      return [...arrResult, ...arrLeft, ...arrRight]
+    }
+    //function for recursively splitting array into smaller and smaller pieces and then merging the pieces back together sorted
+    // this is typically labeled 'mergeSort'
+    let bool = true
+    function divideAndConquer(array){
+      // Base case
+      if(array.length < 2) return array
+      
+      const halfLength = array.length / 2
+      const arrLeft = array.splice(0, halfLength)
+      // if(bool){
+      //   console.log('Left: ',arrLeft)
+      //   console.log('\nRight: ',array)
+      //   bool = false
+      // }
+      return merge(divideAndConquer(arrLeft),divideAndConquer(array))
+    }
+    
+    //Go
+    setArray(divideAndConquer(array))
   }
 
 
-  // State for array
+  // State for number array
   const [array, setArray] = useState(regenerate(100,5,1000))
-  // useEffect(() => {
-  //   console.log(array)
-  // }, [array])
 
 
   return (
@@ -111,7 +157,7 @@ function App() {
       <button onClick={()=>setArray(regenerate(100,5,1000))}>Regenerate Array</button>
       <button onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</button>
       <button onClick={()=>quickSort(array)}>Quick Sort</button>
-      <button>Merge Sort</button>
+      <button onClick={()=>mergeSort(array)}>Merge Sort</button>
       <button>Heap Sort</button>
 
       <Graph array={array}/>
