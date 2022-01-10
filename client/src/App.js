@@ -111,54 +111,64 @@ function App() {
   }
 
   const mergeSort = (array) => {
-    //function for merging 2 sorted arrays
+
+    //helper function for merging 2 sorted arrays
     function merge(arrLeft, arrRight){
-      let arrResult = []
+      let arrSorted = []
       //Loop until one of the arrays is empty
       while(arrLeft.length && arrRight.length){
         //arrLeft and arrRight are sorted so we only have to look at [0] at a time
         if(arrLeft[0] < arrRight[0]){
-          arrResult.push(arrLeft.shift())
+          arrSorted.push(arrLeft.shift())
         } else {
-          arrResult.push(arrRight.shift())
+          arrSorted.push(arrRight.shift())
         }
       }
       // Only 1 of arrLeft or arrRight will be nonempty, so add it on and return
-      return [...arrResult, ...arrLeft, ...arrRight]
+      return [...arrSorted, ...arrLeft, ...arrRight]
+      // returns sorted array length that of arrLeft + arrRight
     }
     //function for recursively splitting array into smaller and smaller pieces and then merging the pieces back together sorted
     // this is typically labeled 'mergeSort'
-    let bool = true
+    // let bool = true
     function divideAndConquer(array){
       // Base case
-      if(array.length < 2) return array
+      if(array.length < 2) return array//singly sorted array
       
       const halfLength = array.length / 2
+      //split array into arrLeft and array (Right half of original)
       const arrLeft = array.splice(0, halfLength)
       // if(bool){
       //   console.log('Left: ',arrLeft)
       //   console.log('\nRight: ',array)
       //   bool = false
       // }
+      // recurse down the array splitting the array in half and
+      // merging doubly large subArrays until the
+      // left half and right half of the original array are finally merged the same
       return merge(divideAndConquer(arrLeft),divideAndConquer(array))
     }
     
     //Go
     setArray(divideAndConquer(array))
+    // divideAndConquer(array)
   }
 
 
+  //----- STATE VARIABLES -----
   // State for number array
-  const [array, setArray] = useState(regenerate(100,5,1000))
-
+  // const [array, setArray] = useState(regenerate(500,5,1000))
+const [array, setArray] = useState(regenerate(300,5,1000))
 
   return (
     <div className="App">
-      <button onClick={()=>setArray(regenerate(100,5,1000))}>Regenerate Array</button>
+      <button onClick={()=>setArray(regenerate(400,5,1000))}>Regenerate Array</button>
       <button onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</button>
       <button onClick={()=>quickSort(array)}>Quick Sort</button>
       <button onClick={()=>mergeSort(array)}>Merge Sort</button>
       <button>Heap Sort</button>
+      <label for='nArraySize'>Array Size: </label>
+      <input type='number' id='nArraySize' value='400'/>
 
       <Graph array={array}/>
     </div>

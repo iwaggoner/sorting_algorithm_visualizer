@@ -38,11 +38,23 @@
 }
 
 .bar {
-  width: 3px;
-  margin: 2px;
+  width: 1px;
+  margin: 1px;
   font-size: .5rem;
   background-color: pink;
 }
 .flexContainer {
   display: flex;
+}
+button {
+  color: blue;
+  padding: 10px;
+  margin: 10px;
+  font-size: 2rem;
+}
+input, label {
+  font-size: 2rem;
+}
+input {
+  width : 100px
 }
