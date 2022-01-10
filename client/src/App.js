@@ -4,6 +4,9 @@ import { useState } from 'react'
 
 function App() {
 
+  //----- STATE VARIABLES -----
+  const [size, setSize] = useState('100')
+
   // create funtion for generating random number array
   const regenerate = (length, min = 0, max = 1000) => {
     let array = []
@@ -12,14 +15,20 @@ function App() {
     }
     return array
   }
+
   // helper function for swapping items in an array
-  const swap = (array, index1, index2) => {
+  async function swap (array, index1, index2) {
+    // await sleep(10)
+    // await setTimeout(()=>{}, 10)
+    await sleepIsaac(10)
     let temp = array[index1]
     array[index1] = array[index2]
     array[index2] = temp
   }
+
+
   // helper function to delay any line (helps for animation)
-  function sleep(milliseconds) {
+  async function sleep(milliseconds) {
     const date = Date.now();
     let currentDate = null;
     do {
@@ -27,10 +36,16 @@ function App() {
     } while (currentDate - date < milliseconds);
   }
 
+  // Trying to create different sleep funciton
+  // found from video or stackover flow
+  async function sleepIsaac(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+  }
+
 
 
   // Bubble sort when press button
-  const bubbleSort = (array, n) => {
+  async function bubbleSort (array, n){
     // Iterative Solution
     // let swapped = false
     // let tempArray = array
@@ -54,16 +69,14 @@ function App() {
     if (n===1) return
     // After each pass, the largest element is pushed to the end
     for(let i=0; i<n-1; i++)
-      setTimeout(()=>{
         if(tempArray[i] > tempArray[i+1]){
           // swap arr[i] and arr[i+1]
-          swap(tempArray,i,i+1)
+          await swap(tempArray,i,i+1)
           // let temp = tempArray[i]
           // tempArray[i] = tempArray[i+1]
           // tempArray[i+1] = temp
           setArray([...tempArray])
         }
-      }, 10)
     
     // Largest element is moved to end, recur for remaining array
     bubbleSort(tempArray, n-1)
@@ -155,33 +168,31 @@ function App() {
     // divideAndConquer(array)
   }
 
-  const heapSort = (array) => {
+  async function heapSort (array) {
     // sets n to length of array
     let tempArray = array
     let n = array.length
     // This loop sets the entire array into a heap
     for(let i=Math.floor(n/2)-1;i >=0; i-- ){
-      setTimeout(()=>{
-      heapify(tempArray, n, i)
-      }, 100)
-      setArray([...tempArray])
+      // setTimeout(()=>{
+      await heapify(tempArray, n, i) 
+      await setArray([...tempArray])
+      // }, 100)
     }
 
     // This for loop swaps the first and last elements of the array
     for(let i = n-1; i > 0; i--){
-      setTimeout(()=>{
       let temp = tempArray[0]
       tempArray[0] = tempArray[i]
       tempArray[i] = temp
-      heapify(tempArray, i, 0)
-      setArray([...tempArray])
-      }, 1000)
+      await heapify(tempArray, i, 0)
+      await setArray([...tempArray])
     }
     setArray([...tempArray])
   }
 
   // function is uesed to turn an arry into a heap
-  function heapify(arr, n, i){
+  async function heapify(arr, n, i){
     // sets the largest to i the parent of the heap
     let largest = i;
     // sets the childern for heap
@@ -196,12 +207,13 @@ function App() {
       largest = r
 
     // if largest is not i then switch its location
-    if(largest != i){
-      let swap = arr[i]
-      arr[i] = arr[largest]
-      arr[largest] = swap
+    if(largest !== i){
+      await swap(arr, i, largest)
+      // let swap = arr[i]
+      // arr[i] = arr[largest]
+      // arr[largest] = swap
       // run heapify untill this if statement is not true
-      heapify(arr, n, largest)
+      await heapify(arr, n, largest)
  
     }
   }
@@ -210,17 +222,24 @@ function App() {
   //----- STATE VARIABLES -----
   // State for number array
   // const [array, setArray] = useState(regenerate(500,5,1000))
-const [array, setArray] = useState(regenerate(300,5,1000))
+const [array, setArray] = useState(regenerate(size,5,1000))
+
+  function chanageSize (e) {
+    setSize(e.target.value)
+  }
 
   return (
-    <div className="App">
-      <button onClick={()=>setArray(regenerate(400,5,1000))}>Regenerate Array</button>
+    <div className="App"> 
+      
+      <button onClick={()=>setArray(regenerate(size,5,1000))}>Regenerate Array</button>
+      <label for='nArraySize'>Array Size: </label>
+      <input type='number' id='nArraySize' onChange={chanageSize}/>
       <button onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</button>
       <button onClick={()=>quickSort(array)}>Quick Sort</button>
       <button onClick={()=>mergeSort(array)}>Merge Sort</button>
       <button onClick={()=>heapSort(array)}>Heap Sort</button>
-      <label for='nArraySize'>Array Size: </label>
-      <input type='number' id='nArraySize' value='400'/>
+      
+      
 
       <Graph array={array}/>
     </div>

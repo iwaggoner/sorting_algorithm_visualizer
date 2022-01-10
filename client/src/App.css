@@ -45,7 +45,9 @@
 }
 .flexContainer {
   display: flex;
+  justify-content: center;
 }
+
 button {
   color: blue;
   padding: 10px;
