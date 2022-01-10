@@ -68,22 +68,25 @@ function App() {
     // sets n to lenght of array
     let tempArray = array
     let n = array.length
-    setTimeout(()=>{
+
     // This loop sets the entire array into a heap
     for(let i=Math.floor(n/2)-1;i >=0; i-- ){
+      setTimeout(()=>{
       heapify(tempArray, n, i)
+      }, 100)
       setArray([...tempArray])
     }
 
     // This for loop swaps the first and last elements of the array
     for(let i = n-1; i > 0; i--){
+      setTimeout(()=>{
       let temp = tempArray[0]
       tempArray[0] = tempArray[i]
       tempArray[i] = temp
       heapify(tempArray, i, 0)
       setArray([...tempArray])
+      }, 1000)
     }
-    }, 100)
     setArray([...tempArray])
   }
 
@@ -108,7 +111,8 @@ function App() {
       arr[i] = arr[largest]
       arr[largest] = swap
       // run heapify untill this if statement is not true
-      heapify(arr, n, largest) 
+      heapify(arr, n, largest)
+ 
     }
   }
 
