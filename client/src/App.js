@@ -1,7 +1,6 @@
 import './App.css';
 import Graph from './components/Graph'
 import { useState } from 'react'
-import { acceptsArray } from 'expres/utils';
 
 function App() {
 
@@ -27,6 +26,8 @@ function App() {
       currentDate = Date.now();
     } while (currentDate - date < milliseconds);
   }
+
+
 
   // Bubble sort when press button
   const bubbleSort = (array, n) => {
@@ -154,6 +155,52 @@ function App() {
     // divideAndConquer(array)
   }
 
+  const heapSort = (array) => {
+    // sets n to length of array
+    let tempArray = array
+    let n = array.length
+    // This loop sets the entire array into a heap
+    for(let i=Math.floor(n/2)-1;i >=0; i-- ){
+      heapify(tempArray, n, i)
+      setArray([...tempArray])
+    }
+
+    // This for loop swaps the first and last elements of the array
+    for(let i = n-1; i > 0; i--){
+      let temp = tempArray[0]
+      tempArray[0] = tempArray[i]
+      tempArray[i] = temp
+      heapify(tempArray, i, 0)
+      setArray([...tempArray])
+    }
+    setArray([...tempArray])
+  }
+
+  // function is uesed to turn an arry into a heap
+  function heapify(arr, n, i){
+    // sets the largest to i the parent of the heap
+    let largest = i;
+    // sets the childern for heap
+    let l = 2*i+1
+    let r = 2*i+2
+    
+    // test two childern to see if larger than head
+    if(l < n && arr[l] > arr[largest])
+      largest = l
+
+    if(r < n && arr[r] > arr[largest])
+      largest = r
+
+    // if largest is not i then switch its location
+    if(largest != i){
+      let swap = arr[i]
+      arr[i] = arr[largest]
+      arr[largest] = swap
+      // run heapify untill this if statement is not true
+      heapify(arr, n, largest) 
+    }
+  }
+
 
   //----- STATE VARIABLES -----
   // State for number array
@@ -166,7 +213,7 @@ const [array, setArray] = useState(regenerate(300,5,1000))
       <button onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</button>
       <button onClick={()=>quickSort(array)}>Quick Sort</button>
       <button onClick={()=>mergeSort(array)}>Merge Sort</button>
-      <button>Heap Sort</button>
+      <button onClick={()=>heapSort(array)}>Heap Sort</button>
       <label for='nArraySize'>Array Size: </label>
       <input type='number' id='nArraySize' value='400'/>
 
