@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 
 const Graph = ( props) => {
 
@@ -7,9 +7,9 @@ const Graph = ( props) => {
     return <div key={index} className="bar" style={{height:`${element/3}px`}}>{element}</div>
   })
 
-  useEffect(() => {
-    // console.log(props.array)
-  }, [props.array])
+  // useEffect(() => {
+  //   // console.log(props.array)
+  // }, [props.array])
 
   return (
     <div className="flexContainer">
