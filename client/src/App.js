@@ -5,10 +5,17 @@ import { useState } from 'react'
 function App() {
 
   //----- STATE VARIABLES -----
+  // State for size of number array
   const [size, setSize] = useState('100')
+  // State for number array
+  const [array, setArray] = useState(regenerate(size,5,1000))
 
-  // create funtion for generating random number array
-  const regenerate = (length, min = 0, max = 1000) => {
+  function chanageSize (e) {
+    setSize(e.target.value)
+  }
+
+  // funtion for generating random number array
+  function regenerate(length, min = 0, max = 1000){
     let array = []
     for(let i=0; i<length; i++){
       array.push(Math.floor(Math.random()*(max-min) + min))
@@ -17,7 +24,7 @@ function App() {
   }
 
   // helper function for swapping items in an array
-  async function swap (array, index1, index2) {
+  async function swap(array, index1, index2){
     // await sleep(10)
     // await setTimeout(()=>{}, 10)
     await sleepIsaac(10)
@@ -26,9 +33,8 @@ function App() {
     array[index2] = temp
   }
 
-
   // helper function to delay any line (helps for animation)
-  async function sleep(milliseconds) {
+  async function sleep(milliseconds){
     const date = Date.now();
     let currentDate = null;
     do {
@@ -38,14 +44,12 @@ function App() {
 
   // Trying to create different sleep funciton
   // found from video or stackover flow
-  async function sleepIsaac(ms) {
+  async function sleepIsaac(ms){
     return new Promise(resolve => setTimeout(resolve, ms))
   }
 
-
-
   // Bubble sort when press button
-  async function bubbleSort (array, n){
+  async function bubbleSort(array, n){
     // Iterative Solution
     // let swapped = false
     // let tempArray = array
@@ -61,7 +65,6 @@ function App() {
     //   }
     //   if(!swapped){break}
     // }
-    // console.log(tempArray)
 
     // Recursive Solution
     let tempArray = array
@@ -144,7 +147,6 @@ function App() {
     }
     //function for recursively splitting array into smaller and smaller pieces and then merging the pieces back together sorted
     // this is typically labeled 'mergeSort'
-    // let bool = true
     function divideAndConquer(array){
       // Base case
       if(array.length < 2) return array//singly sorted array
@@ -152,11 +154,6 @@ function App() {
       const halfLength = array.length / 2
       //split array into arrLeft and array (Right half of original)
       const arrLeft = array.splice(0, halfLength)
-      // if(bool){
-      //   console.log('Left: ',arrLeft)
-      //   console.log('\nRight: ',array)
-      //   bool = false
-      // }
       // recurse down the array splitting the array in half and
       // merging doubly large subArrays until the
       // left half and right half of the original array are finally merged the same
@@ -190,7 +187,6 @@ function App() {
     }
     setArray([...tempArray])
   }
-
   // function is uesed to turn an arry into a heap
   async function heapify(arr, n, i){
     // sets the largest to i the parent of the heap
@@ -216,16 +212,6 @@ function App() {
       await heapify(arr, n, largest)
  
     }
-  }
-
-
-  //----- STATE VARIABLES -----
-  // State for number array
-  // const [array, setArray] = useState(regenerate(500,5,1000))
-const [array, setArray] = useState(regenerate(size,5,1000))
-
-  function chanageSize (e) {
-    setSize(e.target.value)
   }
 
   return (
