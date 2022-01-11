@@ -72,6 +72,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### To Dos
 ## AVL Tree (insert, delete, search(update)) (show 4 primary rotations (Right, Left, Right-Left, Left-Right))
+## Annimation speed scrollbar
+## Navbar
+# Sign in
+## Test your knowledge
+
+## Insertion Sort
+
 ## Sorting Linter
 # Make every function require a counter input which got incremented each function call and could calculate O(n) notation for a user defined algorithm..
-## Insertion Sort

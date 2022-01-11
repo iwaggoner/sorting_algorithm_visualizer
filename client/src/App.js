@@ -1,6 +1,8 @@
 import './App.css';
 import Graph from './components/Graph'
 import { useState } from 'react'
+import Button from 'react-bootstrap/Button';
+
 
 function App() {
 
@@ -24,9 +26,15 @@ function App() {
   }
 
   // helper function for swapping items in an array
-  async function swap(array, index1, index2){
-    // await sleep(10)
-    // await setTimeout(()=>{}, 10)
+  function swap(array, index1, index2){
+    let temp = array[index1]
+    array[index1] = array[index2]
+    array[index2] = temp
+  }
+
+  // async helper function for sleeping before swapping items in an array
+  async function sleepThenSwap(array, index1, index2){
+    // Pause 10 ms
     await sleepIsaac(10)
     let temp = array[index1]
     array[index1] = array[index2]
@@ -34,7 +42,7 @@ function App() {
   }
 
   // helper function to delay any line (helps for animation)
-  async function sleep(milliseconds){
+  function sleep(milliseconds){
     const date = Date.now();
     let currentDate = null;
     do {
@@ -74,7 +82,7 @@ function App() {
     for(let i=0; i<n-1; i++)
         if(tempArray[i] > tempArray[i+1]){
           // swap arr[i] and arr[i+1]
-          await swap(tempArray,i,i+1)
+          await sleepThenSwap(tempArray,i,i+1)
           // let temp = tempArray[i]
           // tempArray[i] = tempArray[i+1]
           // tempArray[i+1] = temp
@@ -85,7 +93,7 @@ function App() {
     bubbleSort(tempArray, n-1)
   }
 
-  const quickSort = (array) => {
+  function quickSort(array){
     // function for sorting each half of array
     const partition = (subArray, leftIndex, rightIndex) => {
       let pivot = subArray[Math.floor((leftIndex + rightIndex)/2)]//middle element
@@ -111,7 +119,7 @@ function App() {
     }
     // recursive function to sort each half of array over and over
     // this is typically labeled 'quickSort'
-    const divideAndConquer = (subArray, left, right) => {
+    function divideAndConquer(subArray, left, right){
       if(subArray.length > 1){
         let index = partition(subArray, left, right)
         if(left < index - 1){
@@ -127,10 +135,10 @@ function App() {
     divideAndConquer(array, 0, array.length - 1)
   }
 
-  const mergeSort = (array) => {
+  async function mergeSort(array){
 
     //helper function for merging 2 sorted arrays
-    function merge(arrLeft, arrRight){
+    async function merge(arrLeft, arrRight){
       let arrSorted = []
       //Loop until one of the arrays is empty
       while(arrLeft.length && arrRight.length){
@@ -142,7 +150,9 @@ function App() {
         }
       }
       // Only 1 of arrLeft or arrRight will be nonempty, so add it on and return
-      return [...arrSorted, ...arrLeft, ...arrRight]
+      await sleepIsaac()
+      await setArray([...arrSorted, ...arrLeft, ...arrRight])
+      return 
       // returns sorted array length that of arrLeft + arrRight
     }
     //function for recursively splitting array into smaller and smaller pieces and then merging the pieces back together sorted
@@ -171,10 +181,8 @@ function App() {
     let n = array.length
     // This loop sets the entire array into a heap
     for(let i=Math.floor(n/2)-1;i >=0; i-- ){
-      // setTimeout(()=>{
       await heapify(tempArray, n, i) 
       await setArray([...tempArray])
-      // }, 100)
     }
 
     // This for loop swaps the first and last elements of the array
@@ -204,10 +212,7 @@ function App() {
 
     // if largest is not i then switch its location
     if(largest !== i){
-      await swap(arr, i, largest)
-      // let swap = arr[i]
-      // arr[i] = arr[largest]
-      // arr[largest] = swap
+      await sleepThenSwap(arr, i, largest)
       // run heapify untill this if statement is not true
       await heapify(arr, n, largest)
  
@@ -217,13 +222,14 @@ function App() {
   return (
     <div className="App"> 
       
-      <button onClick={()=>setArray(regenerate(size,5,1000))}>Regenerate Array</button>
+      <Button variant='secondary' onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</Button>
+      <Button variant='secondary' onClick={()=>quickSort(array)}>Quick Sort</Button>
+      <Button variant='secondary' onClick={()=>mergeSort(array)}>Merge Sort</Button>
+      <Button variant='secondary' onClick={()=>heapSort(array)}>Heap Sort</Button>
+      <br></br>
+      <Button variant='secondary' onClick={()=>setArray(regenerate(size,5,1000))}>Regenerate Array</Button>
       <label for='nArraySize'>Array Size: </label>
       <input type='number' id='nArraySize' onChange={chanageSize}/>
-      <button onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</button>
-      <button onClick={()=>quickSort(array)}>Quick Sort</button>
-      <button onClick={()=>mergeSort(array)}>Merge Sort</button>
-      <button onClick={()=>heapSort(array)}>Heap Sort</button>
       
       
 
