@@ -2,12 +2,12 @@
 
 // creating a base name for the mongodb
 // REPLACE THE STRING WITH YOUR OWN DATABASE NAME
-const mongooseBaseName = 'express-auth-template'
+const mongooseBaseName = 'db-algo-view'
 
 // create the mongodb uri for development and test
 const database = {
-	development: `mongodb://localhost/${mongooseBaseName}-development`,
-	test: `mongodb://localhost/${mongooseBaseName}-test`,
+	development: `mongodb://localhost/${mongooseBaseName}`,
+	test: `mongodb://localhost/${mongooseBaseName}`,
 }
 
 // Identify if development environment is test or development
