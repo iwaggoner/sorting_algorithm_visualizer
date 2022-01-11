@@ -26,9 +26,15 @@ function App() {
   }
 
   // helper function for swapping items in an array
-  async function swap(array, index1, index2){
-    // await sleep(10)
-    // await setTimeout(()=>{}, 10)
+  function swap(array, index1, index2){
+    let temp = array[index1]
+    array[index1] = array[index2]
+    array[index2] = temp
+  }
+
+  // async helper function for sleeping before swapping items in an array
+  async function sleepThenSwap(array, index1, index2){
+    // Pause 10 ms
     await sleepIsaac(10)
     let temp = array[index1]
     array[index1] = array[index2]
@@ -76,7 +82,7 @@ function App() {
     for(let i=0; i<n-1; i++)
         if(tempArray[i] > tempArray[i+1]){
           // swap arr[i] and arr[i+1]
-          await swap(tempArray,i,i+1)
+          await sleepThenSwap(tempArray,i,i+1)
           // let temp = tempArray[i]
           // tempArray[i] = tempArray[i+1]
           // tempArray[i+1] = temp
@@ -87,7 +93,7 @@ function App() {
     bubbleSort(tempArray, n-1)
   }
 
-  const quickSort = (array) => {
+  function quickSort(array){
     // function for sorting each half of array
     const partition = (subArray, leftIndex, rightIndex) => {
       let pivot = subArray[Math.floor((leftIndex + rightIndex)/2)]//middle element
@@ -113,7 +119,7 @@ function App() {
     }
     // recursive function to sort each half of array over and over
     // this is typically labeled 'quickSort'
-    const divideAndConquer = (subArray, left, right) => {
+    function divideAndConquer(subArray, left, right){
       if(subArray.length > 1){
         let index = partition(subArray, left, right)
         if(left < index - 1){
@@ -129,7 +135,7 @@ function App() {
     divideAndConquer(array, 0, array.length - 1)
   }
 
-  const mergeSort = (array) => {
+  async function mergeSort(array){
 
     //helper function for merging 2 sorted arrays
     function merge(arrLeft, arrRight){
@@ -173,10 +179,8 @@ function App() {
     let n = array.length
     // This loop sets the entire array into a heap
     for(let i=Math.floor(n/2)-1;i >=0; i-- ){
-      // setTimeout(()=>{
       await heapify(tempArray, n, i) 
       await setArray([...tempArray])
-      // }, 100)
     }
 
     // This for loop swaps the first and last elements of the array
@@ -206,10 +210,7 @@ function App() {
 
     // if largest is not i then switch its location
     if(largest !== i){
-      await swap(arr, i, largest)
-      // let swap = arr[i]
-      // arr[i] = arr[largest]
-      // arr[largest] = swap
+      await sleepThenSwap(arr, i, largest)
       // run heapify untill this if statement is not true
       await heapify(arr, n, largest)
  
