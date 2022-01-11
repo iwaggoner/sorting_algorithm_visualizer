@@ -62,11 +62,11 @@ const App = () => {
   }
 
   // helper function for swapping items in an array
-  function swap(array, index1, index2){
-    let temp = array[index1]
-    array[index1] = array[index2]
-    array[index2] = temp
-  }
+  // function swap(array, index1, index2){
+  //   let temp = array[index1]
+  //   array[index1] = array[index2]
+  //   array[index2] = temp
+  // }
 
   // async helper function for sleeping before swapping items in an array
   async function sleepThenSwap(array, index1, index2){
@@ -78,13 +78,13 @@ const App = () => {
   }
 
   // helper function to delay any line (helps for animation)
-  function sleep(milliseconds){
-    const date = Date.now();
-    let currentDate = null;
-    do {
-      currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
-  }
+  // function sleep(milliseconds){
+  //   const date = Date.now();
+  //   let currentDate = null;
+  //   do {
+  //     currentDate = Date.now();
+  //   } while (currentDate - date < milliseconds);
+  // }
 
   // Trying to create different sleep funciton
   // found from video or stackover flow
@@ -171,44 +171,141 @@ const App = () => {
     divideAndConquer(array, 0, array.length - 1)
   }
 
-  async function mergeSort(array){
+  // function mergeSort(array){
 
-    //helper function for merging 2 sorted arrays
-    async function merge(arrLeft, arrRight){
-      let arrSorted = []
-      //Loop until one of the arrays is empty
-      while(arrLeft.length && arrRight.length){
-        //arrLeft and arrRight are sorted so we only have to look at [0] at a time
-        if(arrLeft[0] < arrRight[0]){
-          arrSorted.push(arrLeft.shift())
+  //   //helper function for merging 2 sorted arrays
+  //   function merge(arrLeft, arrRight){
+  //     let arrSorted = []
+  //     //Loop until one of the arrays is empty
+  //     while(arrLeft.length && arrRight.length){
+  //       //arrLeft and arrRight are sorted so we only have to look at [0] at a time
+  //       if(arrLeft[0] < arrRight[0]){
+  //         arrSorted.push(arrLeft.shift())
+  //       } else {
+  //         arrSorted.push(arrRight.shift())
+  //       }
+  //     }
+  //     // Only 1 of arrLeft or arrRight will be nonempty, so add it on and return
+  //     return[...arrSorted, ...arrLeft, ...arrRight]
+  //     // returns sorted array of length that of arrLeft + arrRight
+  //   }
+  //   //function for recursively splitting array into smaller and smaller pieces and then merging the pieces back together sorted
+  //   // this is typically labeled 'mergeSort'
+  //   function divideAndConquer(array){
+  //     // Base case
+  //     if(array.length < 2) return array//singly sorted array
+      
+  //     const halfLength = array.length / 2
+  //     //split array into arrLeft and array (Right half of original)
+  //     const arrLeft = array.splice(0, halfLength)
+  //     // recurse down the array splitting the array in half and
+  //     // merging doubly large subArrays until the
+  //     // left half and right half of the original array are finally merged the same
+  //     return merge(divideAndConquer(arrLeft),divideAndConquer(array))
+  //   }
+    
+  //   //Go
+  //   setArray(divideAndConquer(array))
+  //   // divideAndConquer(array)
+  // }
+
+  // function mergeSortConstantSpace(array){
+
+  //   //helper function for merging 2 sorted arrays
+  //   function merge(arrLeftStart, arrRightStart, arrEnd){
+  //     let iLeft = arrLeftStart
+  //     let iRight= arrRightStart
+  //     let iInsert = arrLeftStart
+  //     //Loop until one of the arrays is empty
+  //     while(iLeft<=arrRightStart-1 && iRight<=arrEnd){
+  //       //arrLeft and arrRight are sorted so we only have to look at [0] at a time
+  //       if(array[iLeft] < array[iRight]){
+  //         sleepThenSwap(array, iLeft, iInsert)
+  //         iLeft++
+  //         iInsert++
+  //         // arrSorted.push(arrLeft.shift())
+  //       } else {
+  //         sleepThenSwap(array, iRight, iInsert)
+  //         iRight++
+  //         iInsert++
+  //         // arrSorted.push(arrRight.shift())
+  //       }
+  //     }
+  //     // Only 1 of arrLeft or arrRight will be nonempty, so add it on and return
+  //     return
+  //     // returns sorted array of length that of arrLeft + arrRight
+  //   }
+  //   //function for recursively splitting array into smaller and smaller pieces and then merging the pieces back together sorted
+  //   // this is typically labeled 'mergeSort'
+  //   function divideAndConquer(arrayStart, arrayEnd){
+  //     // Base case
+  //     if(arrayStart===arrayEnd) return arrayStart//singly sorted array
+      
+  //     const halfLength = (arrayEnd-arrayStart) / 2
+  //     //split array into arrLeft and array (Right half of original)
+  //     const arrRightStart = arrayStart + halfLength
+  //     // recurse down the array splitting the array in half and
+  //     // merging doubly large subArrays until the
+  //     // left half and right half of the original array are finally merged the same
+  //     // return merge(divideAndConquer(arrLeft),divideAndConquer(array))
+  //     return merge(arrayStart)
+  //   }
+    
+  //   //Go
+  //   setArray(divideAndConquer(array))
+  //   // divideAndConquer(array)
+  // }
+
+  function mergeSort3(array){
+    function merge(arr,beg,mid,end,maxele){
+      let i = beg
+      let j = mid + 1
+      let k = beg
+      while (i <= mid && j <= end){
+        if (arr[i] % maxele <= arr[j] % maxele){
+          arr[k] = arr[k] + (arr[i] % maxele) * maxele
+          k++
+          i++
         } else {
-          arrSorted.push(arrRight.shift())
+          arr[k] = arr[k] + (arr[j] % maxele) * maxele
+          k++
+          j++
         }
       }
-      // Only 1 of arrLeft or arrRight will be nonempty, so add it on and return
-      sleepIsaac(10)
-      setArray([...arrSorted, ...arrLeft, ...arrRight])
-      return 
-      // returns sorted array length that of arrLeft + arrRight
+      while (i <= mid){
+        arr[k] = arr[k] + (arr[i] % maxele) * maxele
+        k++
+        i++
+      }
+      while (j <= end){
+        arr[k] = arr[k] + (arr[j] % maxele) * maxele
+        k++
+        j++
+      }
+  
+      // Obtaining actual values
+      for (i = beg; i <= end; i++){
+        arr[i] = Math.floor(arr[i] / maxele)
+      }
     }
-    //function for recursively splitting array into smaller and smaller pieces and then merging the pieces back together sorted
-    // this is typically labeled 'mergeSort'
-    function divideAndConquer(array){
-      // Base case
-      if(array.length < 2) return array//singly sorted array
-      
-      const halfLength = array.length / 2
-      //split array into arrLeft and array (Right half of original)
-      const arrLeft = array.splice(0, halfLength)
-      // recurse down the array splitting the array in half and
-      // merging doubly large subArrays until the
-      // left half and right half of the original array are finally merged the same
-      return merge(divideAndConquer(arrLeft),divideAndConquer(array))
+     
+    // Recursive merge sort with extra parameter, maxele
+    function mergeSortRec(arr,beg,end,maxele){
+      if (beg < end){
+        let mid = Math.floor((beg + end) / 2)
+        mergeSortRec(arr, beg, mid, maxele)
+        mergeSortRec(arr, mid + 1, end, maxele)
+        merge(arr, beg, mid, end, maxele)
+      }
     }
-    
+     
+    // This functions finds max element and calls recursive merge sort.
+    function mergeSort(arr,n){
+      let maxele = Math.max(...arr) + 1
+      mergeSortRec(arr, 0, n - 1, maxele)
+    }
     //Go
-    setArray(divideAndConquer(array))
-    // divideAndConquer(array)
+    setArray(mergeSort(array,array.length))
   }
 
   async function heapSort (array) {
@@ -298,11 +395,11 @@ const App = () => {
 
 			<Button variant='secondary' onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</Button>
       <Button variant='secondary' onClick={()=>quickSort(array)}>Quick Sort</Button>
-      <Button variant='secondary' onClick={()=>mergeSort(array)}>Merge Sort</Button>
+      <Button variant='secondary' onClick={()=>mergeSort3(array)}>Merge Sort</Button>
       <Button variant='secondary' onClick={()=>heapSort(array)}>Heap Sort</Button>
       <br></br>
       <Button variant='secondary' onClick={()=>setArray(regenerate(size,5,1000))}>Regenerate Array</Button>
-      <label for='nArraySize'>Array Size: </label>
+      <label htmlFor='nArraySize'>Array Size: </label>
       <input type='number' id='nArraySize' onChange={chanageSize}/>
       
       <Graph array={array}/>
