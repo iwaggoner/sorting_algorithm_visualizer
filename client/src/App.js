@@ -1,6 +1,8 @@
 import './App.css';
 import Graph from './components/Graph'
 import { useState } from 'react'
+import Button from 'react-bootstrap/Button';
+
 
 function App() {
 
@@ -231,13 +233,14 @@ const [array, setArray] = useState(regenerate(size,5,1000))
   return (
     <div className="App"> 
       
-      <button onClick={()=>setArray(regenerate(size,5,1000))}>Regenerate Array</button>
+      <Button variant='secondary' onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</Button>
+      <Button variant='secondary' onClick={()=>quickSort(array)}>Quick Sort</Button>
+      <Button variant='secondary' onClick={()=>mergeSort(array)}>Merge Sort</Button>
+      <Button variant='secondary' onClick={()=>heapSort(array)}>Heap Sort</Button>
+      <br></br>
+      <Button variant='secondary' onClick={()=>setArray(regenerate(size,5,1000))}>Regenerate Array</Button>
       <label for='nArraySize'>Array Size: </label>
       <input type='number' id='nArraySize' onChange={chanageSize}/>
-      <button onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</button>
-      <button onClick={()=>quickSort(array)}>Quick Sort</button>
-      <button onClick={()=>mergeSort(array)}>Merge Sort</button>
-      <button onClick={()=>heapSort(array)}>Heap Sort</button>
       
       
 
