@@ -40,7 +40,7 @@ function App() {
   }
 
   // helper function to delay any line (helps for animation)
-  async function sleep(milliseconds){
+  function sleep(milliseconds){
     const date = Date.now();
     let currentDate = null;
     do {
@@ -136,7 +136,7 @@ function App() {
   async function mergeSort(array){
 
     //helper function for merging 2 sorted arrays
-    function merge(arrLeft, arrRight){
+    async function merge(arrLeft, arrRight){
       let arrSorted = []
       //Loop until one of the arrays is empty
       while(arrLeft.length && arrRight.length){
@@ -148,7 +148,9 @@ function App() {
         }
       }
       // Only 1 of arrLeft or arrRight will be nonempty, so add it on and return
-      return [...arrSorted, ...arrLeft, ...arrRight]
+      await sleepIsaac()
+      await setArray([...arrSorted, ...arrLeft, ...arrRight])
+      return 
       // returns sorted array length that of arrLeft + arrRight
     }
     //function for recursively splitting array into smaller and smaller pieces and then merging the pieces back together sorted
