@@ -129,9 +129,9 @@ const App = () => {
     bubbleSort(tempArray, n-1)
   }
 
-  function quickSort(array){
+  async function quickSort(array){
     // function for sorting each half of array
-    const partition = (subArray, leftIndex, rightIndex) => {
+    async function partition(subArray, leftIndex, rightIndex){
       let pivot = subArray[Math.floor((leftIndex + rightIndex)/2)]//middle element
       let i = leftIndex
       let j = rightIndex
@@ -144,8 +144,8 @@ const App = () => {
             j--//move j to the left until that element is less than pivot (first element less than pivot from left)
           }
           if(i <= j){
-            swap(subArray, i, j)//swap the two elements
-            setArray([...subArray])
+            await sleepThenSwap(subArray, i, j)//swap the two elements
+            await setArray([...subArray])
             i++
             j--
           }
@@ -155,9 +155,9 @@ const App = () => {
     }
     // recursive function to sort each half of array over and over
     // this is typically labeled 'quickSort'
-    function divideAndConquer(subArray, left, right){
+    async function divideAndConquer(subArray, left, right){
       if(subArray.length > 1){
-        let index = partition(subArray, left, right)
+        let index = await partition(subArray, left, right)
         if(left < index - 1){
           divideAndConquer(subArray, left, index-1)
         }
@@ -186,8 +186,8 @@ const App = () => {
         }
       }
       // Only 1 of arrLeft or arrRight will be nonempty, so add it on and return
-      await sleepIsaac()
-      await setArray([...arrSorted, ...arrLeft, ...arrRight])
+      sleepIsaac(10)
+      setArray([...arrSorted, ...arrLeft, ...arrRight])
       return 
       // returns sorted array length that of arrLeft + arrRight
     }
