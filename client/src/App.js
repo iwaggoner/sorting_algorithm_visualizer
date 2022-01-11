@@ -13,8 +13,11 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import Graph from './components/Graph'
+import AlgoTest from './components/shared/AlgoTest'
+import Study from './components/auth/Study'
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
+import Stack from 'react-bootstrap/Stack'
 
 const App = () => {
 
@@ -257,7 +260,7 @@ const App = () => {
 
 	return (
 		<Fragment>
-			<Header user={user} />
+			<Header user={user}/>
 			<Routes>
 				<Route path='/' element={<Home msgAlert={msgAlert} user={user} />} />
 				<Route
@@ -283,6 +286,18 @@ const App = () => {
 							<ChangePassword msgAlert={msgAlert} user={user} />
 						</RequireAuth>}
 				/>
+        <Route
+					path='/algo-test'
+					element={<AlgoTest msgAlert={msgAlert} user={user} />}
+				/>
+        <Route
+					path='/study'
+					element={
+						<RequireAuth user={user}>
+							<Study msgAlert={msgAlert} user={user} />
+						</RequireAuth>}
+				/>
+        
 			</Routes>
 			{msgAlerts.map((msgAlert) => (
 				<AutoDismissAlert
@@ -295,17 +310,29 @@ const App = () => {
 				/>
 			))}
 
-
-			<Button variant='secondary' onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</Button>
-      <Button variant='secondary' onClick={()=>quickSort(array)}>Quick Sort</Button>
-      <Button variant='secondary' onClick={()=>mergeSort(array)}>Merge Sort</Button>
-      <Button variant='secondary' onClick={()=>heapSort(array)}>Heap Sort</Button>
-      <br></br>
-      <Button variant='secondary' onClick={()=>setArray(regenerate(size,5,1000))}>Regenerate Array</Button>
-      <label for='nArraySize'>Array Size: </label>
-      <input type='number' id='nArraySize' onChange={chanageSize}/>
-      
-      <Graph array={array}/>
+      <Stack> 
+        <div className="flexContainer">
+          <Button className='stackbutton'
+            variant='secondary' 
+            onClick={()=>setArray(regenerate(size,5,1000))}>
+              Regenerate Array
+          </Button>
+          <label for='nArraySize'>Array Size: </label>
+          <input type='number' 
+            id='nArraySize' 
+            onChange={chanageSize}
+            className='arrayinput'/>
+        </div>
+        <div>
+          <Graph array={array}/>
+        </div>
+        <div className="flexContainer">
+          <Button className='stackbutton' variant='secondary' onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</Button>
+          <Button className='stackbutton' variant='secondary' onClick={()=>quickSort(array)}>Quick Sort</Button>
+          <Button className='stackbutton' variant='secondary' onClick={()=>mergeSort(array)}>Merge Sort</Button>
+          <Button className='stackbutton' variant='secondary' onClick={()=>heapSort(array)}>Heap Sort</Button>
+        </div>
+      </Stack>
 		</Fragment>
 	)
 }

@@ -9,13 +9,18 @@ const linkStyle = {
 const authenticatedOptions = (
 	<>
 		<Nav.Link>
+			<Link to='study' style={linkStyle}>
+				Study
+			</Link>
+		</Nav.Link>
+		<Nav.Link>
 			<Link to='change-password' style={linkStyle}>
 				Change Password
 			</Link>
 		</Nav.Link>
 		<Nav.Link>
 			<Link to='sign-out' style={linkStyle}>
-				Sign Out
+				Log out
 			</Link>
 		</Nav.Link>
 	</>
@@ -27,7 +32,7 @@ const unauthenticatedOptions = (
 		    <Link to='sign-up' style={linkStyle}>Sign Up</Link>
         </Nav.Link>
         <Nav.Link>
-		    <Link to='sign-in' style={linkStyle}>Sign In</Link>
+		    <Link to='sign-in' style={linkStyle}>Log In</Link>
         </Nav.Link>
 	</>
 )
@@ -35,8 +40,8 @@ const unauthenticatedOptions = (
 const alwaysOptions = (
 	<>
 		<Nav.Link>
-			<Link to='/' style={linkStyle}>
-				Home
+			<Link to='/algo-test' style={linkStyle}>
+				Algo Test
 			</Link>
 		</Nav.Link>
 	</>
@@ -46,12 +51,12 @@ const Header = ({ user }) => (
 	<Navbar bg='primary' variant='dark' expand='md'>
 		<Navbar.Brand>
             <Link to='/' style={linkStyle}>
-                react-auth-template
+                Landing Page
             </Link>
         </Navbar.Brand>
-		<Navbar.Toggle aria-controls='basic-navbar-nav' />
-		<Navbar.Collapse id='basic-navbar-nav'>
-			<Nav className='ml-auto'>
+		<Navbar.Toggle aria-controls='basic-navbar-nav'/>
+		<Navbar.Collapse id='basic-navbar-nav' className="justify-content-end">
+			<Nav className='ml-auto justify-content-center'>
 				{user && (
 					<span className='navbar-text mr-2'>Welcome, {user.email}</span>
 				)}
