@@ -42,13 +42,19 @@ const Home = (props) => {
 	console.log('props in home', props)
 
 
+  //----- STATE VARIABLES -----
   // State for size of number array
   const [size, setSize] = useState('100')
   // State for number array
   const [array, setArray] = useState(regenerate(size,5,1000))
+  // State for animation speed
+  const [speed, setSpeed] = useState(20)
 
-  function chanageSize (e) {
+  function changeSize(e){
     setSize(e.target.value)
+  }
+  function changeSpeed(e){
+    setSpeed(e.target.value)
   }
 
   // funtion for generating random number array
@@ -61,16 +67,16 @@ const Home = (props) => {
   }
 
   // helper function for swapping items in an array
-  // function swap(array, index1, index2){
-  //   let temp = array[index1]
-  //   array[index1] = array[index2]
-  //   array[index2] = temp
-  // }
+  function swap(array, index1, index2){
+    let temp = array[index1]
+    array[index1] = array[index2]
+    array[index2] = temp
+  }
 
   // async helper function for sleeping before swapping items in an array
   async function sleepThenSwap(array, index1, index2){
-    // Pause 10 ms
-    await sleepIsaac(10)
+    // Pause x milliseconds
+    await sleepIsaac(speed)
     let temp = array[index1]
     array[index1] = array[index2]
     array[index2] = temp
@@ -196,15 +202,15 @@ const Home = (props) => {
         k++
         j++
       }
-
+  
       // Obtaining actual values
       for (i = beg; i <= end; i++){
         arr[i] = Math.floor(arr[i] / maxele)
       }
-      await sleepIsaac(10)
+      await sleepIsaac(speed)
       await setArray([...arr])
     }
-    
+     
     // Recursive merge sort with extra parameter, maxele
     async function mergeSortRec(arr,beg,end,maxele){
       if (beg < end){
@@ -214,7 +220,7 @@ const Home = (props) => {
         await merge(arr, beg, mid, end, maxele)
       }
     }
-    
+     
     // This functions finds max element and calls recursive merge sort.
     async function mergeSort(arr,n){
       let maxele = Math.max(...arr) + 1
@@ -237,9 +243,10 @@ const Home = (props) => {
 
     // This for loop swaps the first and last elements of the array
     for(let i = n-1; i > 0; i--){
-      let temp = tempArray[0]
-      tempArray[0] = tempArray[i]
-      tempArray[i] = temp
+      // let temp = tempArray[0]
+      // tempArray[0] = tempArray[i]
+      // tempArray[i] = temp
+      swap(tempArray,i,0)
       await heapify(tempArray, i, 0)
       await setArray([...tempArray])
     }
@@ -265,9 +272,9 @@ const Home = (props) => {
       await sleepThenSwap(arr, i, largest)
       // run heapify untill this if statement is not true
       await heapify(arr, n, largest)
-
+ 
     }
-}
+  }
 
 
 	return (
@@ -286,9 +293,14 @@ const Home = (props) => {
           </Button>
             <label id='graph' for='nArraySize'>Array Size: </label>
             <input type='number' 
-              id='nArraySize' 
-              onChange={chanageSize}
+              id='nArraySize'
+              value={size}
+              onChange={changeSize}
               className='arrayinput'/>
+                <div class="slidecontainer">
+                  <label hmtlFor="animationSpeed">Animation Speed:</label>
+                  <input onChange={changeSpeed} type="range" min="1" max="100" value={speed} class="slider" id="animationSpeed"/>
+                </div>
             </div>
             <div style={graph} className='flexContainer'>
               <Graph array={array}/>
