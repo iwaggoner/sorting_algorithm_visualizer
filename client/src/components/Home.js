@@ -360,12 +360,9 @@ const Home = (props) => {
 				<h2 style={title}>Algo Views</h2>
 				<p style={subtitle}>This App was built to help you study and learn more on sorting algrithms</p>
 			</div>
-
-			<br></br>
-			<CarouselImage/>
-			<h2 style={title}>Study Sorts</h2>
-			<Cards/>
-			<Stack> 
+      <br></br>
+      <br></br>
+      <Stack> 
 				<div className="flexContainer">
 				<Button className='stackbutton'
 					variant='secondary' 
@@ -378,7 +375,7 @@ const Home = (props) => {
 						onChange={chanageSize}
 						className='arrayinput'/>
 					</div>
-					<div style={graph} className='flexContainer'>
+					<div id='graph' style={graph} className='flexContainer'>
 					  <Graph array={array}/>
 					</div>
 					<div className="flexContainer">
@@ -388,6 +385,11 @@ const Home = (props) => {
 						<Button className='stackbutton' variant='secondary' onClick={()=>heapSort(array)}>Heap Sort</Button>
 					</div>
 				</Stack>
+			
+			<CarouselImage/>
+			<h2 style={title}>Study Sorts</h2>
+			<Cards/>
+		
 		</>
 	)
 }

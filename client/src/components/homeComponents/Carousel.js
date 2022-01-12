@@ -28,7 +28,7 @@ const CarouselImage = () => {
       <Carousel.Caption>
         <h3>Visulizer</h3>
         <p>Click the link below or scroll down to find our easy to use sort visulizer </p>
-        <Link to="/visulizer">Link</Link>
+        <a href='#graph'>Link</a>
       </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
