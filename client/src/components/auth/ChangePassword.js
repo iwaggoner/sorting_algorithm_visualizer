@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { changePassword } from '../../api/auth'
-import messages from '../shared/AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -31,22 +30,10 @@ const ChangePassword = (props) => {
         const passwords = {oldPassword, newPassword}
 
 		changePassword(passwords, user)
-			.then(() =>
-				msgAlert({
-					heading: 'Change Password Success',
-					message: messages.changePasswordSuccess,
-					variant: 'success',
-				})
-			)
 			.then(() => navigate('/'))
 			.catch((error) => {
 				setOldPassword('')
                 setNewPassword('')
-				msgAlert({
-					heading: 'Change Password Failed with error: ' + error.message,
-					message: messages.changePasswordFailure,
-					variant: 'danger',
-				})
 			})
 	}
 

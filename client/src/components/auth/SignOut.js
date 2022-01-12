@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import {Button, ButtonGroup} from 'react-bootstrap'
 
 import { signOut } from '../../api/auth'
-import messages from '../shared/AutoDismissAlert/messages'
 
 const SignOut = (props) => {
 	const { msgAlert, clearUser, user } = props
@@ -13,13 +12,6 @@ const SignOut = (props) => {
 
     const onSignOut = () => {
 		signOut(user)
-			.finally(() =>
-				msgAlert({
-					heading: 'Signed Out Successfully',
-					message: messages.signOutSuccess,
-					variant: 'success',
-				})
-			)
 			.finally(() => navigate('/'))
 			.finally(() => clearUser())
     }

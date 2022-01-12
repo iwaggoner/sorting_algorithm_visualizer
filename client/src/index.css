@@ -23,6 +23,26 @@ code {
   align-items: end;
   margin: 5px;
 }
+.homeRow {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  width: 30%;
+  margin: 5px;
+}
+.homeCard {
+  max-width: 600px;
+  max-height: 500px;
+  margin: 5px;
+}
+
+.homeOpener {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: end;
+  margin: 5px;
+}
 
 .arrayinput {
   height: 30px;
