@@ -2,17 +2,13 @@ import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link } from 'react-router-dom'
+
 const linkStyle = {
     color: 'white',
     textDecoration: 'none'
 }
 const authenticatedOptions = (
 	<>
-		<Nav.Link>
-			<Link to='study' style={linkStyle}>
-				Study
-			</Link>
-		</Nav.Link>
 		<Nav.Link>
 			<Link to='change-password' style={linkStyle}>
 				Change Password
@@ -37,34 +33,36 @@ const unauthenticatedOptions = (
 	</>
 )
 
-const alwaysOptions = (
-	<>
-		<Nav.Link>
-			<Link to='/algo-test' style={linkStyle}>
-				Algo Test
-			</Link>
-		</Nav.Link>
-	</>
-)
-
 const Header = ({ user }) => (
-	<Navbar bg='primary' variant='dark' expand='md'>
-		<Navbar.Brand>
-            <Link to='/' style={linkStyle}>
-                Landing Page
-            </Link>
-        </Navbar.Brand>
+	<Navbar bg='secondary' fixed='top' variant='dark' expand='sm'>
+		<Navbar.Brand >
+			<Nav.Link>
+				<Link to='/' style={linkStyle}>Landing Page</Link>
+			</Nav.Link>
+		</Navbar.Brand>
+		<Nav.Item>
+			<Nav.Link>
+				<Link to='/algo-test' style={linkStyle}>Algo-Test</Link>
+			</Nav.Link>
+		</Nav.Item>
+		<Nav.Item>
+			<Nav.Link>
+				<Link to='/community' style={linkStyle}>Community</Link>
+			</Nav.Link>
+		</Nav.Item>
+        
 		<Navbar.Toggle aria-controls='basic-navbar-nav'/>
 		<Navbar.Collapse id='basic-navbar-nav' className="justify-content-end">
 			<Nav className='ml-auto justify-content-center'>
 				{user && (
 					<span className='navbar-text mr-2'>Welcome, {user.email}</span>
 				)}
-				{alwaysOptions}
 				{user ? authenticatedOptions : unauthenticatedOptions}
 			</Nav>
 		</Navbar.Collapse>
 	</Navbar>
+
+	
 )
 
 export default Header

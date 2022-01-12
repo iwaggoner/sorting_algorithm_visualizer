@@ -23,6 +23,26 @@ code {
   align-items: end;
   margin: 5px;
 }
+.homeRow {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  width: 30%;
+  margin: 5px;
+}
+.homeCard {
+  max-width: 600px;
+  max-height: 500px;
+  margin: 5px;
+}
+
+.homeOpener {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: end;
+  margin: 5px;
+}
 
 .arrayinput {
   height: 30px;
@@ -38,4 +58,44 @@ input, label {
 
 input {
   width : 100px
+}
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+  display: flex;
+}
+/* The square slider itself */
+.slider {
+  direction: rtl;
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
 }
