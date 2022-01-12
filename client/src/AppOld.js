@@ -15,7 +15,6 @@ import ChangePassword from './components/auth/ChangePassword'
 import Graph from './components/Graph'
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
-import { promiseImpl } from 'ejs'
 
 const App = () => {
 
@@ -48,14 +47,36 @@ const App = () => {
   const [size, setSize] = useState('100')
   // State for number array
   const [array, setArray] = useState(regenerate(size,5,1000))
-  // State for animation speed
-  const [speed, setSpeed] = useState(20)
+  // State for colors array
+  const [arrColors, setArrColors] = useState(new Array(size).fill('pink'))
+  // State for animation delay
+  const [delay, setDelay] = useState(20)
+  // State for pausing sorting
+  const [paused, setPaused] = useState(false)
 
   function changeSize(e){
     setSize(e.target.value)
   }
-  function changeSpeed(e){
-    setSpeed(e.target.value)
+  function changeDelay(e){
+    setDelay(e.target.value)
+  }
+
+  // function for pausing sorting
+  function pause(){
+    const pauseBtn = document.getElementById('pauseBtn')
+    if(paused){
+      pauseBtn.classList.remove('pressed')
+      pauseBtn.innerText = ('Pause')
+    } else {
+      pauseBtn.classList.add('pressed')
+      pauseBtn.innerText = ('Play')
+    }
+    setPaused(!paused)
+  }
+  // function for holding during pause
+  async function hold(){
+    while(paused){}
+    return
   }
 
   // funtion for generating random number array
@@ -77,7 +98,7 @@ const App = () => {
   // async helper function for sleeping before swapping items in an array
   async function sleepThenSwap(array, index1, index2){
     // Pause x milliseconds
-    await sleepIsaac(speed)
+    await sleepIsaac(delay)
     let temp = array[index1]
     array[index1] = array[index2]
     array[index2] = temp
@@ -117,22 +138,19 @@ const App = () => {
     // }
 
     // Recursive Solution
-    let tempArray = array
     // Base case
     if (n===1) return
     // After each pass, the largest element is pushed to the end
-    for(let i=0; i<n-1; i++)
-        if(tempArray[i] > tempArray[i+1]){
-          // swap arr[i] and arr[i+1]
-          await sleepThenSwap(tempArray,i,i+1)
-          // let temp = tempArray[i]
-          // tempArray[i] = tempArray[i+1]
-          // tempArray[i+1] = temp
-          setArray([...tempArray])
-        }
-    
+    for(let i=0; i<n-1; i++){
+
+      if(array[i] > array[i+1]){
+        // swap arr[i] and arr[i+1]
+        await sleepThenSwap(array,i,i+1)
+        setArray([...array])
+      }
+    }
     // Largest element is moved to end, recur for remaining array
-    bubbleSort(tempArray, n-1)
+    bubbleSort(array, n-1)
   }
 
   async function quickSort(array){
@@ -208,7 +226,7 @@ const App = () => {
       for (i = beg; i <= end; i++){
         arr[i] = Math.floor(arr[i] / maxele)
       }
-      await sleepIsaac(speed)
+      await sleepIsaac(delay)
       await setArray([...arr])
     }
      
@@ -328,10 +346,11 @@ const App = () => {
       <input type='number' id='nArraySize' onChange={changeSize} value={size}/>
       <div class="slidecontainer">
         <label hmtlFor="animationSpeed">Animation Speed:</label>
-        <input onChange={changeSpeed} type="range" min="1" max="100" value={speed} class="slider" id="animationSpeed"/>
+        <input onChange={changeDelay} type="range" min="1" max="100" value={delay} class="slider" id="animationSpeed"/>
       </div>
+      <button id="pauseBtn" onClick={pause}>Pause</button>
       
-      <Graph array={array}/>
+      <Graph array={array} arrColors={arrColors}/>
 		</Fragment>
 	)
 }

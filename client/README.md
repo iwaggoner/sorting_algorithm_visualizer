@@ -40,10 +40,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 
 ### To Dos
 
-## Annimation speed scrollbar
 ## Pause button
 ## Colors
 ## Insertion Sort
 
+## Make bars adapt to available screen size
 ## Navbar stuck to top
 ## Test your knowledge

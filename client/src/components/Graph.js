@@ -1,15 +1,14 @@
 import React from 'react'
-// import { useEffect } from 'react'
 
 const Graph = ( props) => {
 
   const bars = props.array.map((element,index) => {
-    return <div key={index} className="bar" style={{height:`${element/3}px`}}>{element}</div>
+    const style = {
+      height: `${element/3}px`,
+      backgroundColor: props.arrColors[index]
+    }
+    return <div key={index} className="bar" style={style}>{element}</div>
   })
-
-  // useEffect(() => {
-  //   // console.log(props.array)
-  // }, [props.array])
 
   return (
     <div className="flexContainer">
