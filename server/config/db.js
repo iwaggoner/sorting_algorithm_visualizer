@@ -7,7 +7,7 @@ const mongooseBaseName = 'db-algo-view'
 // create the mongodb uri for development and test
 const database = {
 	// development: `mongodb://localhost/${mongooseBaseName}-development`,
-	development: `mongodb://127.0.0.1/${mongooseBaseName}`,
+	development: `mongodb://localhost/${mongooseBaseName}`,
 	test: `mongodb://localhost/${mongooseBaseName}-test`,
 }
 

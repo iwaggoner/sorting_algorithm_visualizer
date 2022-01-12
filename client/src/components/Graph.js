@@ -7,7 +7,7 @@ const Graph = ( props) => {
       height: `${element/3}px`,
       backgroundColor: props.arrColors[index]
     }
-    return <div key={index} className="bar" style={style}>{element}</div>
+    return <div key={index} className="bar" style={style}></div>
   })
 
   return (
