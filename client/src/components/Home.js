@@ -27,6 +27,16 @@ const subtitle = {
 	paddingBottom: '20px'
 }
 
+const graph = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '400px',
+  overflowX: 'auto',
+  overflowY: 'auto',
+  border: '5px solid black'
+}
+
 
 const Home = (props) => {
 	// const { msgAlert, user } = props
@@ -368,8 +378,8 @@ const Home = (props) => {
 						onChange={chanageSize}
 						className='arrayinput'/>
 					</div>
-					<div>
-					<Graph array={array}/>
+					<div style={graph} className='flexContainer'>
+					  <Graph array={array}/>
 					</div>
 					<div className="flexContainer">
 						<Button className='stackbutton' variant='secondary' onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</Button>
