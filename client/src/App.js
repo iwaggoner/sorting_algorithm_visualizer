@@ -48,9 +48,14 @@ const App = () => {
   const [size, setSize] = useState('100')
   // State for number array
   const [array, setArray] = useState(regenerate(size,5,1000))
+  // State for animation speed
+  const [speed, setSpeed] = useState(20)
 
-  function chanageSize (e) {
+  function changeSize(e){
     setSize(e.target.value)
+  }
+  function changeSpeed(e){
+    setSpeed(e.target.value)
   }
 
   // funtion for generating random number array
@@ -63,16 +68,16 @@ const App = () => {
   }
 
   // helper function for swapping items in an array
-  // function swap(array, index1, index2){
-  //   let temp = array[index1]
-  //   array[index1] = array[index2]
-  //   array[index2] = temp
-  // }
+  function swap(array, index1, index2){
+    let temp = array[index1]
+    array[index1] = array[index2]
+    array[index2] = temp
+  }
 
   // async helper function for sleeping before swapping items in an array
   async function sleepThenSwap(array, index1, index2){
-    // Pause 10 ms
-    await sleepIsaac(10)
+    // Pause x milliseconds
+    await sleepIsaac(speed)
     let temp = array[index1]
     array[index1] = array[index2]
     array[index2] = temp
@@ -203,7 +208,7 @@ const App = () => {
       for (i = beg; i <= end; i++){
         arr[i] = Math.floor(arr[i] / maxele)
       }
-      await sleepIsaac(10)
+      await sleepIsaac(speed)
       await setArray([...arr])
     }
      
@@ -239,9 +244,10 @@ const App = () => {
 
     // This for loop swaps the first and last elements of the array
     for(let i = n-1; i > 0; i--){
-      let temp = tempArray[0]
-      tempArray[0] = tempArray[i]
-      tempArray[i] = temp
+      // let temp = tempArray[0]
+      // tempArray[0] = tempArray[i]
+      // tempArray[i] = temp
+      swap(tempArray,i,0)
       await heapify(tempArray, i, 0)
       await setArray([...tempArray])
     }
@@ -319,7 +325,11 @@ const App = () => {
       <br></br>
       <Button variant='secondary' onClick={()=>setArray(regenerate(size,5,1000))}>Regenerate Array</Button>
       <label htmlFor='nArraySize'>Array Size: </label>
-      <input type='number' id='nArraySize' onChange={chanageSize}/>
+      <input type='number' id='nArraySize' onChange={changeSize} value={size}/>
+      <div class="slidecontainer">
+        <label hmtlFor="animationSpeed">Animation Speed:</label>
+        <input onChange={changeSpeed} type="range" min="1" max="100" value={speed} class="slider" id="animationSpeed"/>
+      </div>
       
       <Graph array={array}/>
 		</Fragment>

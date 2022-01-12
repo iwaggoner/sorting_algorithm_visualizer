@@ -36,3 +36,14 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/m
 ### Advanced Configuration
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+
+### To Dos
+
+## Annimation speed scrollbar
+## Pause button
+## Colors
+## Insertion Sort
+
+## Navbar stuck to top
+## Test your knowledge
