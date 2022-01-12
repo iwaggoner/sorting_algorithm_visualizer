@@ -1,7 +1,7 @@
 // import React, { Component, Fragment } from 'react'
 import React, { useState, Fragment } from 'react'
-import { Route, Routes } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
+import { Route, Routes } from 'react-router-dom'
 
 // import AuthenticatedRoute from './components/shared/AuthenticatedRoute'
 import Header from './components/shared/Header'
@@ -20,13 +20,8 @@ import BubbleSort from './components/Sorts/BubbleSort'
 import AlgoTest from './components/shared/AlgoTest'
 import Community from './components/shared/Community'
 // Bootstrap Components
-<<<<<<< HEAD
 // import Button from 'react-bootstrap/Button';
 // import Stack from 'react-bootstrap/Stack'
-=======
-import Button from 'react-bootstrap/Button';
-import { promiseImpl } from 'ejs'
->>>>>>> 65ceef5344edc0663b0582d59c1fa89973626e44
 
 const App = () => {
 
@@ -120,7 +115,6 @@ const App = () => {
   //         setArray([...tempArray])
   //       }
     
-<<<<<<< HEAD
   //   // Largest element is moved to end, recur for remaining array
   //   bubbleSort(tempArray, n-1)
   // }
@@ -313,118 +307,6 @@ const App = () => {
   //     await heapify(tempArray, n, i) 
   //     await setArray([...tempArray])
   //   }
-=======
-    // Largest element is moved to end, recur for remaining array
-    bubbleSort(tempArray, n-1)
-  }
-
-  async function quickSort(array){
-    // function for sorting each half of array
-    async function partition(subArray, leftIndex, rightIndex){
-      let pivot = subArray[Math.floor((leftIndex + rightIndex)/2)]//middle element
-      let i = leftIndex
-      let j = rightIndex
-      // setTimeout(()=>{
-        while(i <= j){
-          while(subArray[i] < pivot){
-            i++//move i to the right until that element is greater than pivot (first element greater than pivot)
-          }
-          while(subArray[j] > pivot){
-            j--//move j to the left until that element is less than pivot (first element less than pivot from left)
-          }
-          if(i <= j){
-            await sleepThenSwap(subArray, i, j)//swap the two elements
-            await setArray([...subArray])
-            i++
-            j--
-          }
-        }
-      // }, 100)
-      return i//return pivot position
-    }
-    // recursive function to sort each half of array over and over
-    // this is typically labeled 'quickSort'
-    async function divideAndConquer(subArray, left, right){
-      if(subArray.length > 1){
-        let index = await partition(subArray, left, right)
-        if(left < index - 1){
-          divideAndConquer(subArray, left, index-1)
-        }
-        if(index < right){
-          divideAndConquer(subArray, index, right)
-        }
-      }
-      return subArray
-    }
-    //Go
-    divideAndConquer(array, 0, array.length - 1)
-  }
-
-  async function mergeSort(array){
-    async function merge(arr,beg,mid,end,maxele){
-      let i = beg
-      let j = mid + 1
-      let k = beg
-      while (i <= mid && j <= end){
-        if (arr[i] % maxele <= arr[j] % maxele){
-          arr[k] = arr[k] + (arr[i] % maxele) * maxele
-          k++
-          i++
-        } else {
-          arr[k] = arr[k] + (arr[j] % maxele) * maxele
-          k++
-          j++
-        }
-      }
-      while (i <= mid){
-        arr[k] = arr[k] + (arr[i] % maxele) * maxele
-        k++
-        i++
-      }
-      while (j <= end){
-        arr[k] = arr[k] + (arr[j] % maxele) * maxele
-        k++
-        j++
-      }
-  
-      // Obtaining actual values
-      for (i = beg; i <= end; i++){
-        arr[i] = Math.floor(arr[i] / maxele)
-      }
-      await sleepIsaac(10)
-      await setArray([...arr])
-    }
-     
-    // Recursive merge sort with extra parameter, maxele
-    async function mergeSortRec(arr,beg,end,maxele){
-      if (beg < end){
-        let mid = Math.floor((beg + end) / 2)
-        await mergeSortRec(arr, beg, mid, maxele)
-        await mergeSortRec(arr, mid + 1, end, maxele)
-        await merge(arr, beg, mid, end, maxele)
-      }
-    }
-     
-    // This functions finds max element and calls recursive merge sort.
-    async function mergeSort(arr,n){
-      let maxele = Math.max(...arr) + 1
-      await mergeSortRec(arr, 0, n - 1, maxele)
-    }
-    //Go
-    await mergeSort(array,array.length)
-    // await setArray(array)
-  }
-
-  async function heapSort (array) {
-    // sets n to length of array
-    let tempArray = array
-    let n = array.length
-    // This loop sets the entire array into a heap
-    for(let i=Math.floor(n/2)-1;i >=0; i-- ){
-      await heapify(tempArray, n, i) 
-      await setArray([...tempArray])
-    }
->>>>>>> 65ceef5344edc0663b0582d59c1fa89973626e44
 
   //   // This for loop swaps the first and last elements of the array
   //   for(let i = n-1; i > 0; i--){
@@ -492,7 +374,6 @@ const App = () => {
 					path='/algo-test'
 					element={<AlgoTest user={user} />}
 				/>
-<<<<<<< HEAD
         <Route
 					path='/community'
 					element={
@@ -519,19 +400,6 @@ const App = () => {
 							<QuickSort user={user} />}
 				/>
 			</Routes>
-=======
-			))}
-
-
-			<Button variant='secondary' onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</Button>
-      <Button variant='secondary' onClick={()=>quickSort(array)}>Quick Sort</Button>
-      <Button variant='secondary' onClick={()=>mergeSort(array)}>Merge Sort</Button>
-      <Button variant='secondary' onClick={()=>heapSort(array)}>Heap Sort</Button>
-      <br></br>
-      <Button variant='secondary' onClick={()=>setArray(regenerate(size,5,1000))}>Regenerate Array</Button>
-      <label htmlFor='nArraySize'>Array Size: </label>
-      <input type='number' id='nArraySize' onChange={chanageSize}/>
->>>>>>> 65ceef5344edc0663b0582d59c1fa89973626e44
       
 
       {/* <Stack> 

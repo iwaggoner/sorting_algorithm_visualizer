@@ -16,7 +16,12 @@ const SignUp = (props) => {
 	// 		password: '',
 	// 		passwordConfirmation: '',
 	// 	}
-	// }    
+	// }   
+
+    const container = {
+        marginTop: '100px'
+    }
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
@@ -26,7 +31,7 @@ const SignUp = (props) => {
 	const onSignUp = (event) => {
 		event.preventDefault()
 
-		const { msgAlert, setUser } = props
+		const {setUser} = props
 
         const credentials = {email, password, passwordConfirmation}
 
@@ -38,17 +43,12 @@ const SignUp = (props) => {
                 setEmail('')
                 setPassword('')
                 setPasswordConfirmation('')
-				msgAlert({
-					heading: 'Sign Up Failed with error: ' + error.message,
-					message: messages.signUpFailure,
-					variant: 'danger',
-				})
 			})
 	}
 
 
     return (
-        <div className='row'>
+        <div style={container} className='row'>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
                 <h3>Sign Up</h3>
                 <Form onSubmit={onSignUp}>

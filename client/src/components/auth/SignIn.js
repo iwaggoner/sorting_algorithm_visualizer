@@ -15,6 +15,10 @@ const SignIn = (props) => {
 	// 		password: '',
 	// 	}
 	// }
+    const container = {
+        marginTop: '100px'
+    }
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -42,7 +46,7 @@ const SignIn = (props) => {
 	}
 
     return (
-        <div className='row'>
+        <div style={container} className='row'>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
                 <h3>Sign In</h3>
                 <Form onSubmit={onSignIn}>

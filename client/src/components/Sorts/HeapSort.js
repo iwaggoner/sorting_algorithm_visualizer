@@ -6,9 +6,12 @@ const HeapSort = (props) => {
   // useEffect(() => {
   //   // console.log(props.array)
   // }, [props.array])
+  const container = {
+    marginTop: '100px'
+  }
 
   return (
-    <div className="flexContainer">
+    <div style={container}>
       HeapSort
     </div>
   )

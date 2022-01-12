@@ -7,8 +7,12 @@ const QuickSort = (props) => {
   //   // console.log(props.array)
   // }, [props.array])
 
+  const container = {
+    marginTop: '100px'
+  }
+
   return (
-    <div className="flexContainer">
+    <div style={container}>
       QuickSort
     </div>
   )

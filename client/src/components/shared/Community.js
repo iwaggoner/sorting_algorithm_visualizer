@@ -3,9 +3,12 @@ import React from 'react'
 
 const Community = (props) => {
 
+    const container = {
+        marginTop: '100px'
+      }
 
     return (
-        <div className>Community Page</div>
+        <div style={container} >Community Page</div>
     )
 }
 
