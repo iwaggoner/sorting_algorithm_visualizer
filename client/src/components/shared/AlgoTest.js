@@ -7,28 +7,9 @@ import Form from 'react-bootstrap/Form'
 
 const AlgoTest = (props) => {
 
+    //----- STATE VARIABLES -----
     // const [answers, setAnswers] = useState([])
-    // State for size of number array
-    const [size, setSize] = useState('100')
-    // State for number array
-    const [array, setArray] = useState(regenerate(size,5,1000))
 
-    function regenerate(length, min = 0, max = 1000){
-        let array = []
-        for(let i=0; i<length; i++){
-          array.push(Math.floor(Math.random()*(max-min) + min))
-        }
-        return array
-    }
-   
-
-    // const questionArry = [<div></div>]
-
-
-    // const currentQuestion = () =>{
-    //     return (<div></div>)
-    // }
-    // const displayQuestion = Math.random()
     const container = {
         marginTop: '100px'
     }
@@ -58,7 +39,7 @@ const AlgoTest = (props) => {
                 <h2 style={title}>Algo Test</h2>
                 <h3 style={subtitle}>Question 1</h3>
                 <p style={question}>Watch the animation and guess the sort?</p>
-                <Graph array={array}/>
+                <Graph array={props.array} arrColors={props.arrColors}/>
                 <div className='flexContainer'>
                     <Form>
                         <Form.Group column='true' className="mb-3" controlId="formBasicCheckbox">

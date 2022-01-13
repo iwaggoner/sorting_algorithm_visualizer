@@ -36,3 +36,17 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/m
 ### Advanced Configuration
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+
+### To Dos
+
+## My Scores
+### Patch profile for most recent
+### Get route for my scores
+## Colors
+## Pause button
+## Insertion Sort
+## Make bars adapt to available screen size
+
+## Test your knowledge
+### Sending 1 int and 4 bools
