@@ -12,223 +12,10 @@ const Home = (props) => {
   //----- STATE VARIABLES -----
   // State for size of number array
   const [size, setSize] = useState('100')
-  // State for number array
-  const [array, setArray] = useState(regenerate(size,5,1000))
-  // State for colors array
-  const [arrColors, setArrColors] = useState(new Array(size).fill('pink'))
-  // State for animation delay
-  const [delay, setDelay] = useState(20)
 
   function changeSize(e){
     setSize(e.target.value)
   }
-  function changeDelay(e){
-    setDelay(e.target.value)
-  }
-
-  // funtion for generating random number array
-  function regenerate(length, min = 0, max = 1000){
-    let array = []
-    for(let i=0; i<length; i++){
-      array.push(Math.floor(Math.random()*(max-min) + min))
-    }
-    return array
-  }
-
-  // helper function for swapping items in an array
-  function swap(array, index1, index2){
-    let temp = array[index1]
-    array[index1] = array[index2]
-    array[index2] = temp
-  }
-
-  // async helper function for sleeping before swapping items in an array
-  async function sleepThenSwap(array, index1, index2){
-    // Pause x milliseconds
-    await sleep(delay)
-    let temp = array[index1]
-    array[index1] = array[index2]
-    array[index2] = temp
-  }
-
-  // async helper function for waiting so many milliseconds
-  async function sleep(ms){
-    return new Promise(resolve => setTimeout(resolve, ms))
-  }
-
-  // Bubble sort when press button
-  async function bubbleSort(array, n){
-    // Iterative Solution
-    // let swapped = false
-    // let tempArray = array
-    // for(let i=0; i<tempArray.length; i++){
-    //   swapped = false
-    //   for(let j=0; j<tempArray.length-i-1; j++){
-    //     if(tempArray[j] > tempArray[j+1]){
-    //       let temp = tempArray[j]
-    //       tempArray[j] = tempArray[j+1]
-    //       tempArray[j+1] = temp
-    //       swapped = true
-    //     }
-    //   }
-    //   if(!swapped){break}
-    // }
-
-    // Recursive Solution
-    // Base case
-    if (n===1) return
-    // After each pass, the largest element is pushed to the end
-    for(let i=0; i<n-1; i++)
-        if(array[i] > array[i+1]){
-          // swap arr[i] and arr[i+1]
-          await sleepThenSwap(array,i,i+1)
-          // let temp = tempArray[i]
-          // tempArray[i] = tempArray[i+1]
-          // tempArray[i+1] = temp
-          setArray([...array])
-        }
-    
-    // Largest element is moved to end, recur for remaining array
-    bubbleSort(array, n-1)
-  }
-
-  async function quickSort(array){
-    // function for sorting each half of array
-    async function partition(subArray, leftIndex, rightIndex){
-      let pivot = subArray[Math.floor((leftIndex + rightIndex)/2)]//middle element
-      let i = leftIndex
-      let j = rightIndex
-      while(i <= j){
-        while(subArray[i] < pivot){
-          i++//move i to the right until that element is greater than pivot (first element greater than pivot)
-        }
-        while(subArray[j] > pivot){
-          j--//move j to the left until that element is less than pivot (first element less than pivot from left)
-        }
-        if(i <= j){
-          await sleepThenSwap(subArray, i, j)//swap the two elements
-          await setArray([...subArray])
-          i++
-          j--
-        }
-      }
-      return i//return pivot position
-    }
-    // recursive function to sort each half of array over and over
-    // this is typically labeled 'quickSort'
-    async function divideAndConquer(subArray, left, right){
-      if(subArray.length > 1){
-        let index = await partition(subArray, left, right)
-        if(left < index - 1){
-          divideAndConquer(subArray, left, index-1)
-        }
-        if(index < right){
-          divideAndConquer(subArray, index, right)
-        }
-      }
-      return subArray
-    }
-    //Go
-    divideAndConquer(array, 0, array.length - 1)
-  }
-
-  async function mergeSort(array){
-    async function merge(arr,beg,mid,end,maxele){
-      let i = beg
-      let j = mid + 1
-      let k = beg
-      while (i <= mid && j <= end){
-        if (arr[i] % maxele <= arr[j] % maxele){
-          arr[k] = arr[k] + (arr[i] % maxele) * maxele
-          k++
-          i++
-        } else {
-          arr[k] = arr[k] + (arr[j] % maxele) * maxele
-          k++
-          j++
-        }
-      }
-      while (i <= mid){
-        arr[k] = arr[k] + (arr[i] % maxele) * maxele
-        k++
-        i++
-      }
-      while (j <= end){
-        arr[k] = arr[k] + (arr[j] % maxele) * maxele
-        k++
-        j++
-      }
-  
-      // Obtaining actual values
-      for (i = beg; i <= end; i++){
-        arr[i] = Math.floor(arr[i] / maxele)
-      }
-      await sleep(delay)
-      await setArray([...arr])
-    }
-     
-    // Recursive merge sort with extra parameter, maxele
-    async function mergeSortRec(arr,beg,end,maxele){
-      if (beg < end){
-        let mid = Math.floor((beg + end) / 2)
-        await mergeSortRec(arr, beg, mid, maxele)
-        await mergeSortRec(arr, mid + 1, end, maxele)
-        await merge(arr, beg, mid, end, maxele)
-      }
-    }
-     
-    // This functions finds max element and calls recursive merge sort.
-    async function mergeSort(arr,n){
-      let maxele = Math.max(...arr) + 1
-      await mergeSortRec(arr, 0, n - 1, maxele)
-    }
-    //Go
-    await mergeSort(array,array.length)
-    // await setArray(array)
-  }
-
-  async function heapSort (array) {
-    // sets n to length of array
-    let tempArray = array
-    let n = array.length
-    // This loop sets the entire array into a heap
-    for(let i=Math.floor(n/2)-1;i >=0; i-- ){
-      await heapify(tempArray, n, i) 
-      await setArray([...tempArray])
-    }
-
-    // This for loop swaps the first and last elements of the array
-    for(let i = n-1; i > 0; i--){
-      swap(tempArray,i,0)
-      await heapify(tempArray, i, 0)
-      await setArray([...tempArray])
-    }
-    setArray([...tempArray])
-  }
-  // function is uesed to turn an arry into a heap
-  async function heapify(arr, n, i){
-    // sets the largest to i the parent of the heap
-    let largest = i;
-    // sets the childern for heap
-    let l = 2*i+1
-    let r = 2*i+2
-    
-    // test two childern to see if larger than head
-    if(l < n && arr[l] > arr[largest])
-      largest = l
-
-    if(r < n && arr[r] > arr[largest])
-      largest = r
-
-    // if largest is not i then switch its location
-    if(largest !== i){
-      await sleepThenSwap(arr, i, largest)
-      // run heapify untill this if statement is not true
-      await heapify(arr, n, largest)
-    }
-  }
-
-
   const container = {
     marginTop: '100px'
   }
@@ -266,7 +53,7 @@ const Home = (props) => {
           <div  className="flexContainer">
           <Button className='stackbutton'
             variant='secondary' 
-            onClick={()=>setArray(regenerate(size,5,1000))}>
+            onClick={()=>props.setArray(props.regenerate(size,5,1000))}>
             Regenerate Array
           </Button>
             <label id='graph' for='nArraySize'>Array Size: </label>
@@ -277,17 +64,17 @@ const Home = (props) => {
               className='arrayinput'/>
                 <div class="slidecontainer">
                   <label hmtlFor="animationSpeed">Animation Speed:</label>
-                  <input onChange={changeDelay} type="range" min="1" max="100" value={delay} class="slider" id="animationSpeed"/>
+                  <input onChange={props.changeDelay} type="range" min="1" max="100" value={props.delay} class="slider" id="animationSpeed"/>
                 </div>
             </div>
             <div style={graph} className='flexContainer'>
-              <Graph array={array} arrColors={arrColors}/>
+              <Graph array={props.array} arrColors={props.arrColors}/>
             </div>
             <div className="flexContainer">
-              <Button className='stackbutton' variant='secondary' onClick={()=>bubbleSort(array, array.length)}>Bubble Sort</Button>
-              <Button className='stackbutton' variant='secondary' onClick={()=>quickSort(array)}>Quick Sort</Button>
-              <Button className='stackbutton' variant='secondary' onClick={()=>mergeSort(array)}>Merge Sort</Button>
-              <Button className='stackbutton' variant='secondary' onClick={()=>heapSort(array)}>Heap Sort</Button>
+              <Button className='stackbutton' variant='secondary' onClick={()=>props.bubbleSort(props.array, props.array.length, false)}>Bubble Sort</Button>
+              <Button className='stackbutton' variant='secondary' onClick={()=>props.quickSort(props.array, false)}>Quick Sort</Button>
+              <Button className='stackbutton' variant='secondary' onClick={()=>props.mergeSort(props.array, false)}>Merge Sort</Button>
+              <Button className='stackbutton' variant='secondary' onClick={()=>props.heapSort(props.array, false)}>Heap Sort</Button>
             </div>
           </Stack>
         

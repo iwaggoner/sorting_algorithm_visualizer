@@ -40,10 +40,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 
 ### To Dos
 
-## Pause button
+## My Scores
+### Patch profile for most recent
+### Get route for my scores
 ## Colors
+## Pause button
 ## Insertion Sort
-
 ## Make bars adapt to available screen size
-## Navbar stuck to top
+
 ## Test your knowledge
+### Sending 1 int and 4 bools
