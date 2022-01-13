@@ -41,7 +41,7 @@ const App = () => {
     // State for colors array
     const [arrColorsTest, setArrColorsTest] = useState(new Array(200).fill('pink'))
   // State for animation delay
-  const [delay, setDelay] = useState(20)
+  const [delay, setDelay] = useState(1)
   function changeDelay(e){
     setDelay(e.target.value)
   }
