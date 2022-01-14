@@ -43,25 +43,26 @@ const AlgoTest = (props) => {
 
     async function runAgain(){
         if(currentQuestion === 1){
-            await props.heapSort(props.array, true)
-            await props.setArray(props.regenerate(200,5,1000))
-            setArraySorted(!arraySorted)
+            await props.heapSort(props.heapArray, true)
+            await props.setArrayHeap(props.regenerate(100,5,1000))
+            await setArraySorted(!arraySorted)
         }
         if(currentQuestion === 2){
-            await props.mergeSort(props.array, true)
-            await props.setArray(props.regenerate(200,5,1000))
-            setArraySorted(!arraySorted)
+            await props.mergeSort(props.mergeArray, true)
+            await props.setArrayMerge(props.regenerate(100,5,1000))
+            await setArraySorted(!arraySorted)
         }
         if(currentQuestion === 3){
-            await props.bubbleSort(props.array, props.array.length, true)
-            // await props.setArray(props.regenerate(200,5,1000))
-            setArraySorted(!arraySorted)
+            await props.quickSort(props.quickArray, true)
+            await props.setArrayQuick(props.regenerate(100,5,1000))
+            await setArraySorted(!arraySorted)
         }
         if(currentQuestion === 4){
-            await props.quickSort(props.array, true)
-            await props.setArray(props.regenerate(200,5,1000))
-            setArraySorted(!arraySorted)
+            await props.bubbleSort(props.bubbleArray, props.bubbleArray.length, true)
+            await props.setArrayBubble(props.regenerate(100,5,1000))
+            await setArraySorted(!arraySorted)
         }
+        
 
     }
 
@@ -104,7 +105,8 @@ const AlgoTest = (props) => {
                 <h2 style={title}>Algo Test</h2>
                 <h3 style={subtitle}>Question {currentQuestion}</h3>
                 <p style={question}>Watch the animation and guess the sort?</p>
-                <Graph array={props.array} arrColors={props.arrColors}/>
+                <Graph array={ currentQuestion == 1 ? props.heapArray : (currentQuestion == 2 ? props.mergeArray : (currentQuestion == 3 ? props.quickArray : (currentQuestion == 4 ? props.bubbleArray : props.heapArray)))} 
+                            arrColors={props.arrColors}/>
                 <div className='flexContainer'>
                     <Form onSubmit={submitQuestion}>
                         <Form.Group column='true' className="mb-3" controlId="formBasicCheckbox">

@@ -71,7 +71,7 @@ const Home = (props) => {
               <Graph array={props.array} arrColors={props.arrColors}/>
             </div>
             <div className="flexContainer">
-              <Button className='stackbutton' variant='secondary' onClick={()=>props.bubbleSort(props.array, props.array.length, false)}>Bubble Sort</Button>
+              <Button className='stackbutton' variant='secondary' onClick={()=>props.bubbleSort(props.array, props.array.length, false, props.abortCotroller)}>Bubble Sort</Button>
               <Button className='stackbutton' variant='secondary' onClick={()=>props.quickSort(props.array, false)}>Quick Sort</Button>
               <Button className='stackbutton' variant='secondary' onClick={()=>props.mergeSort(props.array, false)}>Merge Sort</Button>
               <Button className='stackbutton' variant='secondary' onClick={()=>props.heapSort(props.array, false)}>Heap Sort</Button>
