@@ -10,6 +10,11 @@ const linkStyle = {
 const authenticatedOptions = (
 	<>
 		<Nav.Link>
+			<Link to='my-scores' style={linkStyle}>
+				My Scores
+			</Link>
+		</Nav.Link>
+		<Nav.Link>
 			<Link to='change-password' style={linkStyle}>
 				Change Password
 			</Link>
@@ -37,17 +42,12 @@ const Header = ({ user }) => (
 	<Navbar bg='secondary' fixed='top' variant='dark' expand='sm'>
 		<Navbar.Brand >
 			<Nav.Link>
-				<Link to='/' style={linkStyle}>Landing Page</Link>
+				<Link to='/' style={linkStyle}>Algo-Views</Link>
 			</Nav.Link>
 		</Navbar.Brand>
 		<Nav.Item>
 			<Nav.Link>
-				<Link to='/algo-test' style={linkStyle}>Algo-Test</Link>
-			</Nav.Link>
-		</Nav.Item>
-		<Nav.Item>
-			<Nav.Link>
-				<Link to='/community' style={linkStyle}>Community</Link>
+				<Link to='/algo-test' style={linkStyle}>Test Your Knowledge</Link>
 			</Nav.Link>
 		</Nav.Item>
         

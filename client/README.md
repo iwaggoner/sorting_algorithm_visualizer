@@ -47,6 +47,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 ## Pause button
 ## Insertion Sort
 ## Make bars adapt to available screen size
+## Get user's name to show in 'welcome message'
 
 ## Test your knowledge
 ### Sending 1 int and 4 bools

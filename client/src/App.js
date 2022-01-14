@@ -1,5 +1,5 @@
 // import React, { Component, Fragment } from 'react'
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 // import AuthenticatedRoute from './components/shared/AuthenticatedRoute'
@@ -17,10 +17,7 @@ import MergeSort from './components/Sorts/MergeSort'
 import BubbleSort from './components/Sorts/BubbleSort'
 // import Data Pages
 import AlgoTest from './components/shared/AlgoTest'
-import Community from './components/shared/Community'
-// Bootstrap Components
-// import Button from 'react-bootstrap/Button';
-// import Stack from 'react-bootstrap/Stack'
+import MyScores from './components/shared/MyScores'
 
 const App = () => {
 
@@ -33,16 +30,14 @@ const App = () => {
   }
 
   //----- STATE VARIABLES -----
+    // State for busy doing one of the sorts
+    const [busy, setBusy] = useState(false)
     // State for number array
     const [arrayHome, setArrayHome] = useState(generate(200,5,1000))
     // State for colors array
     const [arrColorsHome, setArrColorsHome] = useState(new Array(200).fill('pink'))
-    // State for Test array each sort
-
-    const [arrayTestBubble, setArrayTestBubble] = useState(generate(100,5,1000))
-    const [arrayTestMerge, setArrayTestMerge] = useState(generate(100,5,1000))
-    const [arrayTestQuick, setArrayTestQuick] = useState(generate(100,5,1000))
-    const [arrayTestHeap, setArrayTestHeap] = useState(generate(100,5,1000))
+    // State for number array
+    const [arrayTest, setArrayTest] = useState(generate(200,5,1000))
     // State for colors array
     const [arrColorsTest, setArrColorsTest] = useState(new Array(200).fill('pink'))
   // State for animation delay
@@ -52,7 +47,7 @@ const App = () => {
   }
 
 
-  // funtion for generating random number array
+  // funtion for regenerating random number array
   function generate(length, min = 0, max = 1000){
     let array = []
     for(let i=0; i<length; i++){
@@ -60,12 +55,14 @@ const App = () => {
     }
     return array
   }
-
+  // funtion for regenerating random number array
   function regenerate(length, min = 0, max = 1000){
     let array = []
     for(let i=0; i<length; i++){
       array.push(Math.floor(Math.random()*(max-min) + min))
     }
+    setBusy(false)
+    window.location.reload(false);
     return array
   }
 
@@ -80,9 +77,7 @@ const App = () => {
   async function sleepThenSwap(array, index1, index2){
     // Pause x milliseconds
     await sleep(delay)
-    let temp = array[index1]
-    array[index1] = array[index2]
-    array[index2] = temp
+    swap(array, index1, index2)
   }
 
   // async helper function for waiting so many milliseconds
@@ -92,15 +87,8 @@ const App = () => {
 
   // Bubble sort when press button
   async function bubbleSort(array, n, bTest){
-    // console.log(abortCotroller.signal.aborted)
-    // abortCotroller.abort()
-    // return new Promise( (resolve, reject) => {
-    //   abortSignal.signal.addEventListener( 'abort', () => { // 6
-    //     const error = new DOMException( 'Calculation aborted by the user', 'AbortError' );
-    //     reject( error ); // 8
-    //   } );
-    // })
-      // Iterative Solution
+    setBusy(true)
+    // Iterative Solution
     // let swapped = false
     // let tempArray = array
     // for(let i=0; i<tempArray.length; i++){
@@ -120,22 +108,23 @@ const App = () => {
     // Base case
     if (n===1) return
     // After each pass, the largest element is pushed to the end
-    for(let i=0; i<n-1; i++) {
-        if(array[i] > array[i+1]){
-          // swap arr[i] and arr[i+1]
-          await sleepThenSwap(array,i,i+1)
-          if(bTest){
-            setArrayTestBubble([...array])
-          } else {
-            setArrayHome([...array])
-          }
+    for(let i=0; i<n-1; i++)
+      if(array[i] > array[i+1]){
+        // swap arr[i] and arr[i+1]
+        await sleepThenSwap(array,i,i+1)
+        if(bTest){
+          setArrayTest([...array])
+        } else {
+          setArrayHome([...array])
         }
       }
+          
     // Largest element is moved to end, recur for remaining array
     bubbleSort(array, n-1, bTest)
 }
 
   async function quickSort(array, bTest){
+    setBusy(true)
     // function for sorting each half of array
     async function partition(subArray, leftIndex, rightIndex){
       let pivot = subArray[Math.floor((leftIndex + rightIndex)/2)]//middle element
@@ -180,6 +169,7 @@ const App = () => {
   }
 
   async function mergeSort(array, bTest){
+    setBusy(true)
     async function merge(arr,beg,mid,end,maxele){
       let i = beg
       let j = mid + 1
@@ -239,6 +229,7 @@ const App = () => {
   }
 
   async function heapSort (array, bTest) {
+    setBusy(true)
     // sets n to length of array
     let tempArray = array
     let n = array.length
@@ -263,7 +254,7 @@ const App = () => {
       }
     }
   }
-  // function is uesed to turn an arry into a heap
+  // function is used to turn an array into a heap
   async function heapify(arr, n, i){
     // sets the largest to i the parent of the heap
     let largest = i;
@@ -299,15 +290,13 @@ const App = () => {
             arrColors={arrColorsHome}
             setArrColors={setArrColorsHome}
             regenerate={regenerate}
-            // swap={swap}
-            // sleepThenSwap={sleepThenSwap}
-            // sleep={sleep}
             bubbleSort={bubbleSort}
             quickSort={quickSort}
             mergeSort={mergeSort}
             heapSort={heapSort}
             delay={delay}
             changeDelay={changeDelay}
+            busy={busy}
           />}
         />
         <Route
@@ -325,9 +314,6 @@ const App = () => {
             arrColors={arrColorsTest}
             setArrColors={setArrColorsTest}
             regenerate={regenerate}
-            // swap={swap}
-            // sleepThenSwap={sleepThenSwap}
-            // sleep={sleep}
             bubbleSort={bubbleSort}
             quickSort={quickSort}
             mergeSort={mergeSort}
@@ -358,9 +344,9 @@ const App = () => {
 						</RequireAuth>}
 				/>
         <Route
-					path='/community'
+					path='/my-scores'
 					element={
-							<Community user={user} />}
+							<MyScores user={user} />}
 				/>
         <Route
 					path='/merge-sort'

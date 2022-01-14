@@ -1,5 +1,5 @@
 import Graph from '../components/Graph'
-import React, { useState, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
@@ -12,6 +12,9 @@ const Home = (props) => {
   //----- STATE VARIABLES -----
   // State for size of number array
   const [size, setSize] = useState('100')
+  // useEffect(()=>{
+  //   console.log(props.doSort)
+  // }, [props.doSort])
 
   function changeSize(e){
     setSize(e.target.value)
@@ -62,19 +65,19 @@ const Home = (props) => {
               value={size}
               onChange={changeSize}
               className='arrayinput'/>
-                <div class="slidecontainer">
+                <div className="slidecontainer">
                   <label hmtlFor="animationSpeed">Animation Speed:</label>
-                  <input onChange={props.changeDelay} type="range" min="1" max="100" value={props.delay} class="slider" id="animationSpeed"/>
+                  <input onChange={props.changeDelay} type="range" min="1" max="100" value={props.delay} className="slider" id="animationSpeed"/>
                 </div>
             </div>
             <div style={graph} className='flexContainer'>
               <Graph array={props.array} arrColors={props.arrColors}/>
             </div>
             <div className="flexContainer">
-              <Button className='stackbutton' variant='secondary' onClick={()=>props.bubbleSort(props.array, props.array.length, false, props.abortCotroller)}>Bubble Sort</Button>
-              <Button className='stackbutton' variant='secondary' onClick={()=>props.quickSort(props.array, false)}>Quick Sort</Button>
-              <Button className='stackbutton' variant='secondary' onClick={()=>props.mergeSort(props.array, false)}>Merge Sort</Button>
-              <Button className='stackbutton' variant='secondary' onClick={()=>props.heapSort(props.array, false)}>Heap Sort</Button>
+              <Button disabled={props.busy} className='stackbutton' variant='secondary' onClick={()=>props.bubbleSort(props.array, props.array.length, false)}>Bubble Sort</Button>
+              <Button disabled={props.busy} className='stackbutton' variant='secondary' onClick={()=>props.quickSort(props.array, false)}>Quick Sort</Button>
+              <Button disabled={props.busy} className='stackbutton' variant='secondary' onClick={()=>props.mergeSort(props.array, false)}>Merge Sort</Button>
+              <Button disabled={props.busy} className='stackbutton' variant='secondary' onClick={()=>props.heapSort(props.array, false)}>Heap Sort</Button>
             </div>
           </Stack>
         
