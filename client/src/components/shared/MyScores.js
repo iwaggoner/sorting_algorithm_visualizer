@@ -49,7 +49,7 @@ const MyScores = (props) => {
         color: 'red'
     }
     let arrDiv = <h3>No Scores Yet... Time to Test Your Knowledge!</h3>
-    if(myScores){
+    if(!myScores === []){
         arrDiv = myScores.map(score => {
             return <div style={scoreStyle}>
                 <span style={columnStyle}>Bubble Sort: <span style={score.bBubble ? greenText:redText}>{score.bBubble ? 'Correct!' : 'Incorrect...'}</span></span>

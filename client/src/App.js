@@ -34,6 +34,10 @@ const App = () => {
     const [busy, setBusy] = useState(false)
     // State for number array
     const [arrayHome, setArrayHome] = useState(generate(200,5,1000))
+    const [arrayTestQuick, setArrayTestQuick] = useState(generate(200,5,1000))
+    const [arrayTestBubble, setArrayTestBubble] = useState(generate(200,5,1000))
+    const [arrayTestMerge, setArrayTestMerge] = useState(generate(200,5,1000))
+    const [arrayTestHeap, setArrayTestHeap] = useState(generate(200,5,1000))
     // State for colors array
     const [arrColorsHome, setArrColorsHome] = useState(new Array(200).fill('pink'))
     // State for number array
@@ -41,7 +45,7 @@ const App = () => {
     // State for colors array
     const [arrColorsTest, setArrColorsTest] = useState(new Array(200).fill('pink'))
   // State for animation delay
-  const [delay, setDelay] = useState(1)
+  const [delay, setDelay] = useState(20)
   function changeDelay(e){
     setDelay(e.target.value)
   }
@@ -113,7 +117,7 @@ const App = () => {
         // swap arr[i] and arr[i+1]
         await sleepThenSwap(array,i,i+1)
         if(bTest){
-          setArrayTest([...array])
+          setArrayTestBubble([...array])
         } else {
           setArrayHome([...array])
         }
