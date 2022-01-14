@@ -46,6 +46,7 @@ const AlgoTest = (props) => {
     function runAgain(){
         console.log(currentQuestion)
         if(currentQuestion === 1){
+
             props.heapSort(props.heapArray, true)
         }
         if(currentQuestion === 2){
