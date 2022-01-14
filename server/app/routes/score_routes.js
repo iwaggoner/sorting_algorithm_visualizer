@@ -75,9 +75,9 @@ router.get('/scores/:id', requireToken, (req, res, next) => {
 // POST /scores
 router.post('/scores', requireToken, (req, res, next) => {
 	// set owner of new score to be current user
-	req.body.score.owner = req.user.id
+	// req.body.score.userId = req.user._id
 
-	Score.create(req.body.score)
+	Score.create(req.body)
 		// respond to succesful `create` with status 201 and JSON of new "score"
 		.then((score) => {
 			res.status(201).json({ score: score.toObject() })

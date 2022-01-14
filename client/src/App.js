@@ -33,6 +33,7 @@ const App = () => {
   const [arrayTestHeap, setArrayTestHeap] = useState(generate(100,5,1000))
   // State for animation delay
   const [delay, setDelay] = useState(20)
+
   function changeDelay(e){
     setDelay(e.target.value)
   }
@@ -77,7 +78,7 @@ const App = () => {
 
   // Bubble sort when press button
   async function bubbleSort(array, n, bTest){
-    setBusy(true)
+    if(!bTest) setBusy(true)
     // Iterative Solution
     // let swapped = false
     // let tempArray = array
@@ -114,7 +115,7 @@ const App = () => {
 }
 
   async function quickSort(array, bTest){
-    setBusy(true)
+    if(!bTest) setBusy(true)
     // function for sorting each half of array
     async function partition(subArray, leftIndex, rightIndex){
       let pivot = subArray[Math.floor((leftIndex + rightIndex)/2)]//middle element
@@ -159,7 +160,7 @@ const App = () => {
   }
 
   async function mergeSort(array, bTest){
-    setBusy(true)
+    if(!bTest) setBusy(true)
     // Constant space version of merge (as opposed to linear space so this was is better)
     async function merge(arr,beg,mid,end,maxele){
       let i = beg
@@ -219,7 +220,7 @@ const App = () => {
   }
 
   async function heapSort (array, bTest) {
-    setBusy(true)
+    if(!bTest) setBusy(true)
     // sets n to length of array
     let tempArray = array
     let n = array.length
