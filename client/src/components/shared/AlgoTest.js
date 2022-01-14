@@ -12,11 +12,13 @@ const AlgoTest = (props) => {
     //----- STATE VARIABLES -----
     const [currentQuestion, setCurrentQuestion] = useState(1)
     const [arraySorted, setArraySorted] = useState(false)
-    const [userScore, setuserScore] = useState({})
+    // const [userScore, setuserScore] = useState({})
+
+
 
     useEffect(() => {
         runAgain()
-    },[arraySorted]);
+    },[currentQuestion]);
 
     const container = {
         marginTop: '100px'
@@ -41,59 +43,53 @@ const AlgoTest = (props) => {
         paddingBottom: '20px'
     }
 
-    async function runAgain(){
+    function runAgain(){
+        console.log(currentQuestion)
         if(currentQuestion === 1){
-            await props.heapSort(props.heapArray, true)
-            await props.setArrayHeap(props.regenerate(200,5,1000))
-            await setArraySorted(!arraySorted)
+
+            props.heapSort(props.heapArray, true)
         }
         if(currentQuestion === 2){
-            await props.mergeSort(props.mergeArray, true)
-            await props.setArrayMerge(props.regenerate(200,5,1000))
-            await setArraySorted(!arraySorted)
+            props.mergeSort(props.mergeArray, true)   
         }
         if(currentQuestion === 3){
-            await props.quickSort(props.quickArray, true)
-            await props.setArrayQuick(props.regenerate(200,5,1000))
-            await setArraySorted(!arraySorted)
+            props.quickSort(props.quickArray, true)   
         }
         if(currentQuestion === 4){
-            await props.bubbleSort(props.bubbleArray, props.bubbleArray.length, true)
-            await props.setArrayBubble(props.regenerate(200,5,1000))
-            await setArraySorted(!arraySorted)
+            props.bubbleSort(props.bubbleArray, props.bubbleArray.length, true)   
         }
     }
 
     function submitQuestion (e) {
         e.preventDefault()
-        if(currentQuestion === 1){
-            if(e.target[3].checked === true){
-                setuserScore({...userScore, bHeap: true})
-            } else {
-                setuserScore({...userScore, bHeap: false}) 
-            }
-        }
-        if(currentQuestion === 2){
-            if(e.target[0].checked === true){
-                setuserScore({...userScore, bMerge: true})
-            } else {
-                setuserScore({...userScore, bMerge: false}) 
-            }
-        }
-        if(currentQuestion === 3){
-            if(e.target[1].checked === true){
-                setuserScore({...userScore, bBubble: true})
-            } else {
-                setuserScore({...userScore, bBubble: false}) 
-            }
-        }
-        if(currentQuestion === 4){
-            if(e.target[2].checked === true){
-                setuserScore({...userScore, bQuick: true})
-            } else {
-                setuserScore({...userScore, bQuick: false}) 
-            }
-        }
+        // if(currentQuestion === 1){
+        //     if(e.target[3].checked === true){
+        //         setuserScore({...userScore, bHeap: true})
+        //     } else {
+        //         setuserScore({...userScore, bHeap: false}) 
+        //     }
+        // }
+        // if(currentQuestion === 2){
+        //     if(e.target[0].checked === true){
+        //         setuserScore({...userScore, bMerge: true})
+        //     } else {
+        //         setuserScore({...userScore, bMerge: false}) 
+        //     }
+        // }
+        // if(currentQuestion === 3){
+        //     if(e.target[1].checked === true){
+        //         setuserScore({...userScore, bBubble: true})
+        //     } else {
+        //         setuserScore({...userScore, bBubble: false}) 
+        //     }
+        // }
+        // if(currentQuestion === 4){
+        //     if(e.target[2].checked === true){
+        //         setuserScore({...userScore, bQuick: true})
+        //     } else {
+        //         setuserScore({...userScore, bQuick: false}) 
+        //     }
+        // }
         setCurrentQuestion(currentQuestion+1)
     }
 
@@ -102,8 +98,11 @@ const AlgoTest = (props) => {
             <div style={container}>
                 <h2 style={title}>Algo Test</h2>
                 <h3 style={subtitle}>Question {currentQuestion}</h3>
-                <p style={question}>Watch the animation and guess the sort</p>
-                <Graph array={ currentQuestion == 1 ? props.heapArray : (currentQuestion == 2 ? props.mergeArray : (currentQuestion == 3 ? props.quickArray : (currentQuestion == 4 ? props.bubbleArray : props.heapArray)))} 
+                <p style={question}>Watch the animation and guess the sort?</p>
+                <Graph array={currentQuestion == 1 ? props.heapArray : 
+                                    (currentQuestion == 2 ? props.mergeArray : 
+                                        (currentQuestion == 3 ? props.quickArray : 
+                                            (currentQuestion == 4 ? props.bubbleArray : [])))} 
                             arrColors={props.arrColors}/>
                 <div className='flexContainer'>
                     <Form onSubmit={submitQuestion}>
