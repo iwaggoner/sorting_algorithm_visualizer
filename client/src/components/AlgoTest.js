@@ -1,20 +1,12 @@
-import React, { useEffect, useState, Fragment } from 'react'
-
-
-// import React, { useState, Fragment } from 'react'
-import Graph from '../Graph'
+import React, { useEffect, useState } from 'react'
+import Graph from './Graph'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
-
 
 const AlgoTest = (props) => {
 
     //----- STATE VARIABLES -----
     const [currentQuestion, setCurrentQuestion] = useState(1)
-    const [arraySorted, setArraySorted] = useState(false)
-    // const [userScore, setuserScore] = useState({})
-
-
 
     useEffect(() => {
         runAgain()
@@ -46,7 +38,6 @@ const AlgoTest = (props) => {
     function runAgain(){
         console.log(currentQuestion)
         if(currentQuestion === 1){
-
             props.heapSort(props.heapArray, true)
         }
         if(currentQuestion === 2){
@@ -62,34 +53,6 @@ const AlgoTest = (props) => {
 
     function submitQuestion (e) {
         e.preventDefault()
-        // if(currentQuestion === 1){
-        //     if(e.target[3].checked === true){
-        //         setuserScore({...userScore, bHeap: true})
-        //     } else {
-        //         setuserScore({...userScore, bHeap: false}) 
-        //     }
-        // }
-        // if(currentQuestion === 2){
-        //     if(e.target[0].checked === true){
-        //         setuserScore({...userScore, bMerge: true})
-        //     } else {
-        //         setuserScore({...userScore, bMerge: false}) 
-        //     }
-        // }
-        // if(currentQuestion === 3){
-        //     if(e.target[1].checked === true){
-        //         setuserScore({...userScore, bBubble: true})
-        //     } else {
-        //         setuserScore({...userScore, bBubble: false}) 
-        //     }
-        // }
-        // if(currentQuestion === 4){
-        //     if(e.target[2].checked === true){
-        //         setuserScore({...userScore, bQuick: true})
-        //     } else {
-        //         setuserScore({...userScore, bQuick: false}) 
-        //     }
-        // }
         setCurrentQuestion(currentQuestion+1)
     }
 
