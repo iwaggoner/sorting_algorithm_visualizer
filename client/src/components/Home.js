@@ -1,20 +1,15 @@
 import Graph from '../components/Graph'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack'
-import Cards from './homeComponents/Cards'
-import CarouselImage from './homeComponents/Carousel'
 
 const Home = (props) => {
 
   //----- STATE VARIABLES -----
   // State for size of number array
   const [size, setSize] = useState('100')
-  // useEffect(()=>{
-  //   console.log(props.doSort)
-  // }, [props.doSort])
 
   function changeSize(e){
     setSize(e.target.value)
@@ -25,12 +20,11 @@ const Home = (props) => {
   const title = {
     frontSize: '40px',
     textAlign: 'center',
-    margin: '50px'
   }
   const subtitle = {
     fontSize: '20px',
     textAlign: 'center',
-    width: '550px',
+    width: '650px',
     margin: '0 auto',
     paddingBottom: '20px'
   }
@@ -48,7 +42,7 @@ const Home = (props) => {
 	return (
 		<>
 			<div style={container}>
-				<h2 style={title}>Algo Views</h2>
+				<h1 style={title}>Algo Views</h1>
 				<p style={subtitle}>This App was built to help you study and learn more on sorting algrithms</p>
         <br></br>
         <br></br>
@@ -81,9 +75,6 @@ const Home = (props) => {
             </div>
           </Stack>
         
-        <CarouselImage/>
-        <h2 style={title}>Study Sorts</h2>
-        <Cards/>
       </div>
 		
 		</>
