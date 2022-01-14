@@ -4,8 +4,7 @@ const Graph = ( props) => {
 
   const bars = props.array.map((element,index) => {
     const style = {
-      height: `${element/3}px`,
-      backgroundColor: props.arrColors[index]
+      height: `${element/3}px`
     }
     return <div key={index} className="bar" style={style}></div>
   })

@@ -1,5 +1,5 @@
 // import React, { Component, Fragment } from 'react'
-import React, { useState, Fragment, useEffect } from 'react'
+import React, { useState, Fragment } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 // import AuthenticatedRoute from './components/shared/AuthenticatedRoute'
@@ -10,40 +10,27 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
-// import Sorts
-import HeapSort from './components/Sorts/HeapSort'
-import QuickSort from './components/Sorts/QuickSort'
-import MergeSort from './components/Sorts/MergeSort'
-import BubbleSort from './components/Sorts/BubbleSort'
 // import Data Pages
-import AlgoTest from './components/shared/AlgoTest'
-import MyScores from './components/shared/MyScores'
+import AlgoTest from './components/AlgoTest'
+import MyScores from './components/MyScores'
 
 const App = () => {
 
   const [user, setUser] = useState(null)
-  // const abortCotroller = new window.AbortController()
 
   const clearUser = () => {
-    console.log('clear user ran')
     setUser(null)
   }
 
   //----- STATE VARIABLES -----
-    // State for busy doing one of the sorts
-    const [busy, setBusy] = useState(false)
-    // State for number array
-    const [arrayHome, setArrayHome] = useState(generate(200,5,1000))
-    const [arrayTestQuick, setArrayTestQuick] = useState(generate(100,5,1000))
-    const [arrayTestBubble, setArrayTestBubble] = useState(generate(100,5,1000))
-    const [arrayTestMerge, setArrayTestMerge] = useState(generate(100,5,1000))
-    const [arrayTestHeap, setArrayTestHeap] = useState(generate(100,5,1000))
-    // State for colors array
-    const [arrColorsHome, setArrColorsHome] = useState(new Array(200).fill('pink'))
-    // State for number array
-    const [arrayTest, setArrayTest] = useState(generate(200,5,1000))
-    // State for colors array
-    const [arrColorsTest, setArrColorsTest] = useState(new Array(200).fill('pink'))
+  // State for busy doing one of the sorts
+  const [busy, setBusy] = useState(false)
+  // State for number array
+  const [arrayHome, setArrayHome] = useState(generate(200,5,1000))
+  const [arrayTestQuick, setArrayTestQuick] = useState(generate(100,5,1000))
+  const [arrayTestBubble, setArrayTestBubble] = useState(generate(100,5,1000))
+  const [arrayTestMerge, setArrayTestMerge] = useState(generate(100,5,1000))
+  const [arrayTestHeap, setArrayTestHeap] = useState(generate(100,5,1000))
   // State for animation delay
   const [delay, setDelay] = useState(20)
 
@@ -61,14 +48,13 @@ const App = () => {
     return array
   }
   // funtion for regenerating random number array
-  function regenerate(length, min = 0, max = 1000){
-    let array = []
-    for(let i=0; i<length; i++){
-      array.push(Math.floor(Math.random()*(max-min) + min))
-    }
-    setBusy(false)
+  function regenerate(){
+    // let array = []
+    // for(let i=0; i<length; i++){
+    //   array.push(Math.floor(Math.random()*(max-min) + min))
+    // }
     window.location.reload(false);
-    return array
+    // return array
   }
 
   // helper function for swapping items in an array
@@ -92,7 +78,7 @@ const App = () => {
 
   // Bubble sort when press button
   async function bubbleSort(array, n, bTest){
-    setBusy(true)
+    if(!bTest) setBusy(true)
     // Iterative Solution
     // let swapped = false
     // let tempArray = array
@@ -129,7 +115,7 @@ const App = () => {
 }
 
   async function quickSort(array, bTest){
-    setBusy(true)
+    if(!bTest) setBusy(true)
     // function for sorting each half of array
     async function partition(subArray, leftIndex, rightIndex){
       let pivot = subArray[Math.floor((leftIndex + rightIndex)/2)]//middle element
@@ -174,7 +160,8 @@ const App = () => {
   }
 
   async function mergeSort(array, bTest){
-    setBusy(true)
+    if(!bTest) setBusy(true)
+    // Constant space version of merge (as opposed to linear space so this was is better)
     async function merge(arr,beg,mid,end,maxele){
       let i = beg
       let j = mid + 1
@@ -230,11 +217,10 @@ const App = () => {
     }
     //Go
     await mergeSort(array,array.length)
-    // await setArray(array)
   }
 
   async function heapSort (array, bTest) {
-    setBusy(true)
+    if(!bTest) setBusy(true)
     // sets n to length of array
     let tempArray = array
     let n = array.length
@@ -292,8 +278,6 @@ const App = () => {
             user={user}
             array={arrayHome}
             setArray={setArrayHome}
-            arrColors={arrColorsHome}
-            setArrColors={setArrColorsHome}
             regenerate={regenerate}
             bubbleSort={bubbleSort}
             quickSort={quickSort}
@@ -316,9 +300,6 @@ const App = () => {
             setArrayQuick={setArrayTestQuick}
             setArrayHeap={setArrayTestHeap}
             setArrayMerge={setArrayTestMerge}
-            arrColors={arrColorsTest}
-            setArrColors={setArrColorsTest}
-            regenerate={regenerate}
             bubbleSort={bubbleSort}
             quickSort={quickSort}
             mergeSort={mergeSort}
@@ -353,28 +334,7 @@ const App = () => {
 					element={
 							<MyScores user={user} />}
 				/>
-        <Route
-					path='/merge-sort'
-					element={
-							<MergeSort user={user} />}
-				/>
-        <Route
-					path='/bubble-sort'
-					element={
-							<BubbleSort user={user} />}
-				/>
-        <Route
-					path='/heap-sort'
-					element={
-							<HeapSort user={user} />}
-				/>
-        <Route
-					path='/quick-sort'
-					element={
-							<QuickSort user={user} />}
-				/>
 			</Routes>
-      
 		</Fragment>
 	)
 }

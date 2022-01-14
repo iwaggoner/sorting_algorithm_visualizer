@@ -11,18 +11,6 @@ code {
     monospace;
 }
 
-.bar {
-  width: 1px;
-  margin: 1px;
-  font-size: .5rem;
-  background-color: pink;
-}
-.flexContainer {
-  display: flex;
-  justify-content: center;
-  align-items: end;
-  margin: 5px;
-}
 .homeRow {
   display: flex;
   justify-content: space-evenly;
@@ -37,17 +25,8 @@ code {
 }
 
 label {
-  font-size: 2rem;
-}
-#nArraySize {
-  font-size: 2rem;
-  width : 100px
-}
-#pauseBtn{
-  width: 60px;
-}
-.pressed{
-  background-color: darkgray;
+  font-size: 1.5rem;
+  width: 250px;
 }
 .homeOpener {
   display: flex;
@@ -56,18 +35,34 @@ label {
   align-items: end;
   margin: 5px;
 }
-
 .arrayinput {
   height: 30px;
 }
-
 .stackbutton {
   margin: 5px;
 }
-
-.slidecontainer {
-  width: 100%; /* Width of the outside container */
+.bar {
+  width: 2px;
+  margin: 1px;
+  font-size: .5rem;
+  background-color: pink;
+}
+.flexContainer {
   display: flex;
+  justify-content: center;
+  align-items: end;
+  margin: 5px;
+}
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+.slidecontainer {
+  width: 50%; /* % Width of the outside container */
+  display: flex;
+  align-items: center;
 }
 /* The square slider itself */
 .slider {
