@@ -22,6 +22,7 @@ import MyScores from './components/shared/MyScores'
 const App = () => {
 
   const [user, setUser] = useState(null)
+  // const abortCotroller = new window.AbortController()
 
   const clearUser = () => {
     console.log('clear user ran')
@@ -33,6 +34,10 @@ const App = () => {
     const [busy, setBusy] = useState(false)
     // State for number array
     const [arrayHome, setArrayHome] = useState(generate(200,5,1000))
+    const [arrayTestQuick, setArrayTestQuick] = useState(generate(200,5,1000))
+    const [arrayTestBubble, setArrayTestBubble] = useState(generate(200,5,1000))
+    const [arrayTestMerge, setArrayTestMerge] = useState(generate(200,5,1000))
+    const [arrayTestHeap, setArrayTestHeap] = useState(generate(200,5,1000))
     // State for colors array
     const [arrColorsHome, setArrColorsHome] = useState(new Array(200).fill('pink'))
     // State for number array
@@ -112,7 +117,7 @@ const App = () => {
         // swap arr[i] and arr[i+1]
         await sleepThenSwap(array,i,i+1)
         if(bTest){
-          setArrayTest([...array])
+          setArrayTestBubble([...array])
         } else {
           setArrayHome([...array])
         }
@@ -120,7 +125,7 @@ const App = () => {
           
     // Largest element is moved to end, recur for remaining array
     bubbleSort(array, n-1, bTest)
-  }
+}
 
   async function quickSort(array, bTest){
     setBusy(true)
@@ -139,7 +144,7 @@ const App = () => {
         if(i <= j){
           await sleepThenSwap(subArray, i, j)//swap the two elements
           if(bTest){
-            await setArrayTest([...subArray])
+            await setArrayTestQuick([...subArray])
           } else {
             await setArrayHome([...subArray])
           }
@@ -201,7 +206,7 @@ const App = () => {
       }
       await sleep(delay)
       if(bTest){
-        await setArrayTest([...arr])
+        await setArrayTestMerge([...arr])
       } else {
         await setArrayHome([...arr])
       }
@@ -236,7 +241,7 @@ const App = () => {
     for(let i=Math.floor(n/2)-1;i >=0; i-- ){
       await heapify(tempArray, n, i)
       if(bTest){
-        await setArrayTest([...tempArray])
+        await setArrayTestHeap([...tempArray])
       } else {
         await setArrayHome([...tempArray])
       }
@@ -247,15 +252,10 @@ const App = () => {
       swap(tempArray,i,0)
       await heapify(tempArray, i, 0)
       if(bTest){
-        await setArrayTest([...tempArray])
+        await setArrayTestHeap([...tempArray])
       } else {
         await setArrayHome([...tempArray])
       }
-    }
-    if(bTest){
-      await setArrayTest([...tempArray])
-    } else {
-      await setArrayHome([...tempArray])
     }
   }
   // function is used to turn an array into a heap
@@ -307,8 +307,14 @@ const App = () => {
 					path='/algo-test'
 					element={<AlgoTest
             user={user}
-            array={arrayTest}
-            setArray={setArrayTest}
+            bubbleArray={arrayTestBubble}
+            quickArray={arrayTestQuick}
+            heapArray={arrayTestHeap}
+            mergeArray={arrayTestMerge}
+            setArrayBubble={setArrayTestBubble}
+            setArrayQuick={setArrayTestQuick}
+            setArrayHeap={setArrayTestHeap}
+            setArrayMerge={setArrayTestMerge}
             arrColors={arrColorsTest}
             setArrColors={setArrColorsTest}
             regenerate={regenerate}
