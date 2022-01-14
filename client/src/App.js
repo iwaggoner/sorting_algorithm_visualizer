@@ -47,14 +47,13 @@ const App = () => {
     return array
   }
   // funtion for regenerating random number array
-  function regenerate(length, min = 0, max = 1000){
-    let array = []
-    for(let i=0; i<length; i++){
-      array.push(Math.floor(Math.random()*(max-min) + min))
-    }
-    setBusy(false)
+  function regenerate(){
+    // let array = []
+    // for(let i=0; i<length; i++){
+    //   array.push(Math.floor(Math.random()*(max-min) + min))
+    // }
     window.location.reload(false);
-    return array
+    // return array
   }
 
   // helper function for swapping items in an array
@@ -300,7 +299,6 @@ const App = () => {
             setArrayQuick={setArrayTestQuick}
             setArrayHeap={setArrayTestHeap}
             setArrayMerge={setArrayTestMerge}
-            regenerate={regenerate}
             bubbleSort={bubbleSort}
             quickSort={quickSort}
             mergeSort={mergeSort}
