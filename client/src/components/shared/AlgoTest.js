@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react'
+import { useNavigate } from 'react-router';
 
 
 // import React, { useState, Fragment } from 'react'
@@ -11,10 +12,16 @@ const AlgoTest = (props) => {
 
     //----- STATE VARIABLES -----
     const [currentQuestion, setCurrentQuestion] = useState(1)
-    const [arraySorted, setArraySorted] = useState(false)
-    // const [userScore, setuserScore] = useState({})
+    const [userScore, setUserScore] = useState({})
+    const [userPercent, setUserPercent] = useState(0)
 
+    useEffect(()=>{
+        setUserPercent(0)
+    }, [])
 
+    useEffect(()=>{
+        setUserScore({...userScore, precent: userPercent})
+    }, [userPercent])
 
     useEffect(() => {
         runAgain()
@@ -44,7 +51,6 @@ const AlgoTest = (props) => {
     }
 
     function runAgain(){
-        console.log(currentQuestion)
         if(currentQuestion === 1){
             props.heapSort(props.heapArray, true)
         }
@@ -57,67 +63,97 @@ const AlgoTest = (props) => {
         if(currentQuestion === 4){
             props.bubbleSort(props.bubbleArray, props.bubbleArray.length, true)   
         }
+        // if(currentQuestion > 4){
+        //     props.setArrayBubble(props.regenerate(100,5,1000))
+        // }
     }
 
     function submitQuestion (e) {
         e.preventDefault()
-        // if(currentQuestion === 1){
-        //     if(e.target[3].checked === true){
-        //         setuserScore({...userScore, bHeap: true})
-        //     } else {
-        //         setuserScore({...userScore, bHeap: false}) 
-        //     }
-        // }
-        // if(currentQuestion === 2){
-        //     if(e.target[0].checked === true){
-        //         setuserScore({...userScore, bMerge: true})
-        //     } else {
-        //         setuserScore({...userScore, bMerge: false}) 
-        //     }
-        // }
-        // if(currentQuestion === 3){
-        //     if(e.target[1].checked === true){
-        //         setuserScore({...userScore, bBubble: true})
-        //     } else {
-        //         setuserScore({...userScore, bBubble: false}) 
-        //     }
-        // }
-        // if(currentQuestion === 4){
-        //     if(e.target[2].checked === true){
-        //         setuserScore({...userScore, bQuick: true})
-        //     } else {
-        //         setuserScore({...userScore, bQuick: false}) 
-        //     }
-        // }
+        console.log(userPercent)
+        if(currentQuestion === 1){
+            if(e.target[3].checked === true){
+                setUserPercent(userPercent+25)
+                setUserScore({...userScore, bHeap: true})
+            } else {
+                setUserScore({...userScore, bHeap: false})
+            }
+        }
+        if(currentQuestion === 2){
+            if(e.target[0].checked === true){
+                setUserPercent(userPercent+25)
+                setUserScore({...userScore, bMerge: true})
+            } else {
+                setUserScore({...userScore, bMerge: false}) 
+            }
+        }
+        if(currentQuestion === 3){
+            if(e.target[2].checked === true){
+                setUserPercent(userPercent+25)
+                setUserScore({...userScore, bQuick: true})
+            } else {
+                setUserScore({...userScore, bQuick: false}) 
+            }
+        }
+        if(currentQuestion === 4){
+            if(e.target[1].checked === true){
+                setUserPercent(userPercent+25)
+                setUserScore({...userScore, bBubble: true})
+            } else {
+                setUserScore({...userScore, bBubble: false}) 
+            }
+        }
         setCurrentQuestion(currentQuestion+1)
+    }
+
+    const body = () =>{
+
+        if(currentQuestion < 5){
+            return (
+                <div style={container}>
+                    <h2 style={title}>Algo Test</h2>
+                    <h3 style={subtitle}>Question {currentQuestion}</h3>
+                    <p style={question}>Watch the animation and guess the sort?</p>
+                    <Graph array={currentQuestion == 1 ? props.heapArray : 
+                                        (currentQuestion == 2 ? props.mergeArray : 
+                                            (currentQuestion == 3 ? props.quickArray : 
+                                                (currentQuestion == 4 ? props.bubbleArray : [])))} 
+                                arrColors={props.arrColors}/>
+                    <div className='flexContainer'>
+                        <Form onSubmit={submitQuestion}>
+                            <Form.Group column='true' className="mb-3" controlId="formBasicCheckbox">
+                                <Form.Check type="radio" name="Value1" label="Merge Sort" />
+                                <Form.Check type="radio" name="Value1" label="Bubble Sort" />
+                                <Form.Check type="radio" name="Value1" label="Quick Sort" />
+                                <Form.Check type="radio" name="Value1" label="Heap Sort" />
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Submit
+                            </Button>
+                        </Form>
+                        
+                    </div>
+                </div>  
+            )
+        } else{
+            return (
+                <div style={container}>
+                    <h2 style={title}>Algo Test Completed</h2>
+                    <h3 style={subtitle}>You got merge sort {userScore.bMerge? 'right' : 'wrong'}</h3>
+                    <h3 style={subtitle}>You got quick sort {userScore.bQuick? 'right' : 'wrong'}</h3>
+                    <h3 style={subtitle}>You got bubble sort {userScore.bBubble? 'right' : 'wrong'}</h3>
+                    <h3 style={subtitle}>You got heap sort {userScore.bHeap? 'right' : 'wrong'}</h3>
+                    <p style={question}>Make sure you are signed in or you score will not be saved</p>
+                    <h1 style={title}>{userScore.precent}% was your score</h1>
+                </div>
+            )
+        }
+        
     }
 
     return (
         <>  
-            <div style={container}>
-                <h2 style={title}>Algo Test</h2>
-                <h3 style={subtitle}>Question {currentQuestion}</h3>
-                <p style={question}>Watch the animation and guess the sort?</p>
-                <Graph array={currentQuestion == 1 ? props.heapArray : 
-                                    (currentQuestion == 2 ? props.mergeArray : 
-                                        (currentQuestion == 3 ? props.quickArray : 
-                                            (currentQuestion == 4 ? props.bubbleArray : [])))} 
-                            arrColors={props.arrColors}/>
-                <div className='flexContainer'>
-                    <Form onSubmit={submitQuestion}>
-                        <Form.Group column='true' className="mb-3" controlId="formBasicCheckbox">
-                            <Form.Check type="radio" name="Value1" label="Merge Sort" />
-                            <Form.Check type="radio" name="Value1" label="Bubble Sort" />
-                            <Form.Check type="radio" name="Value1" label="Quick Sort" />
-                            <Form.Check type="radio" name="Value1" label="Heap Sort" />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
-                    
-                </div>
-            </div>
+        {body()}
         </>
     )
 }
