@@ -16,6 +16,7 @@ const MyScores = (props) => {
         .then(res => res.json())
         .then(foundObject=>{
             // Sets API data to state myScores
+            console.log(foundObject)
             setMyScores(foundObject.myScores)
         })
     }, [])

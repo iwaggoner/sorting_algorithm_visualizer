@@ -34,10 +34,10 @@ const App = () => {
     const [busy, setBusy] = useState(false)
     // State for number array
     const [arrayHome, setArrayHome] = useState(generate(200,5,1000))
-    const [arrayTestQuick, setArrayTestQuick] = useState(generate(200,5,1000))
-    const [arrayTestBubble, setArrayTestBubble] = useState(generate(200,5,1000))
-    const [arrayTestMerge, setArrayTestMerge] = useState(generate(200,5,1000))
-    const [arrayTestHeap, setArrayTestHeap] = useState(generate(200,5,1000))
+    const [arrayTestQuick, setArrayTestQuick] = useState(generate(100,5,1000))
+    const [arrayTestBubble, setArrayTestBubble] = useState(generate(100,5,1000))
+    const [arrayTestMerge, setArrayTestMerge] = useState(generate(100,5,1000))
+    const [arrayTestHeap, setArrayTestHeap] = useState(generate(100,5,1000))
     // State for colors array
     const [arrColorsHome, setArrColorsHome] = useState(new Array(200).fill('pink'))
     // State for number array
