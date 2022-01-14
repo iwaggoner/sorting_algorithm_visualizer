@@ -44,26 +44,24 @@ const AlgoTest = (props) => {
     async function runAgain(){
         if(currentQuestion === 1){
             await props.heapSort(props.heapArray, true)
-            await props.setArrayHeap(props.regenerate(100,5,1000))
+            await props.setArrayHeap(props.regenerate(200,5,1000))
             await setArraySorted(!arraySorted)
         }
         if(currentQuestion === 2){
             await props.mergeSort(props.mergeArray, true)
-            await props.setArrayMerge(props.regenerate(100,5,1000))
+            await props.setArrayMerge(props.regenerate(200,5,1000))
             await setArraySorted(!arraySorted)
         }
         if(currentQuestion === 3){
             await props.quickSort(props.quickArray, true)
-            await props.setArrayQuick(props.regenerate(100,5,1000))
+            await props.setArrayQuick(props.regenerate(200,5,1000))
             await setArraySorted(!arraySorted)
         }
         if(currentQuestion === 4){
             await props.bubbleSort(props.bubbleArray, props.bubbleArray.length, true)
-            await props.setArrayBubble(props.regenerate(100,5,1000))
+            await props.setArrayBubble(props.regenerate(200,5,1000))
             await setArraySorted(!arraySorted)
         }
-        
-
     }
 
     function submitQuestion (e) {
@@ -104,7 +102,7 @@ const AlgoTest = (props) => {
             <div style={container}>
                 <h2 style={title}>Algo Test</h2>
                 <h3 style={subtitle}>Question {currentQuestion}</h3>
-                <p style={question}>Watch the animation and guess the sort?</p>
+                <p style={question}>Watch the animation and guess the sort</p>
                 <Graph array={ currentQuestion == 1 ? props.heapArray : (currentQuestion == 2 ? props.mergeArray : (currentQuestion == 3 ? props.quickArray : (currentQuestion == 4 ? props.bubbleArray : props.heapArray)))} 
                             arrColors={props.arrColors}/>
                 <div className='flexContainer'>

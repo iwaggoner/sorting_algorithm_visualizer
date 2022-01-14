@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap'
 
 const MyScores = (props) => {
 
+    const [reset, setReset] = useState(false)
     // Fetch user's scores when page loads
     const [myScores, setMyScores] = useState([])
     useEffect(() => {
@@ -18,7 +19,7 @@ const MyScores = (props) => {
             // Sets API data to state myScores
             setMyScores(foundObject.myScores)
         })
-    }, [])
+    }, [reset])
 
     // Delete that score when they press Delete btn
     const deleteScore = (e) => {
@@ -30,6 +31,9 @@ const MyScores = (props) => {
             },
         }
         fetch(`http://localhost:8000/scores/${e.target.id}`, requestOptions)
+        .then(resBody => {
+            setReset(!reset)
+        })
     }
 
     // Style Objects
@@ -49,7 +53,7 @@ const MyScores = (props) => {
         color: 'red'
     }
     let arrDiv = <h3>No Scores Yet... Time to Test Your Knowledge!</h3>
-    if(!myScores === []){
+    if(myScores[0]){
         arrDiv = myScores.map(score => {
             return <div style={scoreStyle}>
                 <span style={columnStyle}>Bubble Sort: <span style={score.bBubble ? greenText:redText}>{score.bBubble ? 'Correct!' : 'Incorrect...'}</span></span>
