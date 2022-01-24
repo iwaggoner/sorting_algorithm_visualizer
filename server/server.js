@@ -31,15 +31,20 @@ mongoose.connect(db, {
 	useNewUrlParser: true,
 })
 
+mongoose.connection.once('open', ()=>{
+	console.log(`Connected to MongoDb at ${mongoose.connection.host}:${mongoose.connection.port}`)
+})
+
 // instantiate express application object
 const app = express()
 
 // set CORS headers on response from this API using the `cors` NPM package
 // `CLIENT_ORIGIN` is an environment variable that will be set on Heroku
 app.use(
-	cors({
-		origin: process.env.CLIENT_ORIGIN || `http://localhost:${clientDevPort}`,
-	})
+	// cors({ THIS SPECIFIES AN ORIGIN
+	// 	origin: process.env.CLIENT_ORIGIN || `http://localhost:${clientDevPort}`,
+	// })
+	cors()// THIS ALLOWS ALL ORIGINS
 )
 
 // define port for API to run on
