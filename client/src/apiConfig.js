@@ -1,7 +1,7 @@
 let apiUrl
 const apiUrls = {
     // YOU MUST CHANGE PRODUCTION URL WHEN DEPLOYING
-	production: 'https://algo-views-server.herokuapp.com/',
+	production: 'https://algo-views-server.herokuapp.com',
 	development: 'http://localhost:8000',
 }
 
