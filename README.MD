@@ -1,4 +1,6 @@
 ## Sorting Aligrathim Visualizer APP
+Live Link: https://algo-views-client.herokuapp.com
+
 **The Goal of the APP**
 Our goal is to make a app that will visualize the merge sort. Once this goal has been achieved we plan to add additional recognisable sorts.
 
