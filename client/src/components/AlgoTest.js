@@ -1,8 +1,8 @@
-import React, { useEffect, useState, Fragment } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
+import apiUrl from '../apiConfig'
 
 
-// import React, { useState, Fragment } from 'react'
 import Graph from '../components/Graph'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
@@ -73,9 +73,6 @@ const AlgoTest = (props) => {
         if(currentQuestion === 4){
             props.bubbleSort(props.bubbleArray, props.bubbleArray.length, true)   
         }
-        // if(currentQuestion > 4){
-        //     props.setArrayBubble(props.regenerate(100,5,1000))
-        // }
     }
 
     function submitQuestion (e) {
@@ -136,7 +133,7 @@ const AlgoTest = (props) => {
           },
         }
         console.log(requestOptions.body)
-        fetch('http://localhost:8000/scores', requestOptions)
+        fetch(`${apiUrl}/scores`, requestOptions)
           .then(postedScore=> {
             navigate('/my-scores')
           })
