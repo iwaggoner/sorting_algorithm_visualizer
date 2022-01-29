@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'react-bootstrap'
+import apiUrl from '../apiConfig'
 
 const MyScores = (props) => {
 
@@ -13,7 +14,7 @@ const MyScores = (props) => {
 			'Authorization': `Bearer ${props.user.token}`
 		  },
 		}
-        fetch(`http://localhost:8000/scores/user/${props.user._id}`, requestOptions)
+        fetch(`${apiUrl}/scores/user/${props.user._id}`, requestOptions)
         .then(res => res.json())
         .then(foundObject=>{
             // Sets API data to state myScores
@@ -31,7 +32,7 @@ const MyScores = (props) => {
                 'Authorization': `Bearer ${props.user.token}`
             },
         }
-        fetch(`http://localhost:8000/scores/${e.target.id}`, requestOptions)
+        fetch(`${apiUrl}/scores/${e.target.id}`, requestOptions)
         .then(resBody => {
             setReset(!reset)
         })
