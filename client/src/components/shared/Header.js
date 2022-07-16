@@ -42,7 +42,7 @@ const Header = ({ user }) => (
 	<Navbar bg='secondary' fixed='top' variant='dark' expand='sm'>
 		<Navbar.Brand >
 			<Nav.Link>
-				<Link to='/' style={linkStyle}>Algo-Views</Link>
+				<Link to='/' style={linkStyle}>AlgoViews</Link>
 			</Nav.Link>
 		</Navbar.Brand>
 		<Nav.Item>

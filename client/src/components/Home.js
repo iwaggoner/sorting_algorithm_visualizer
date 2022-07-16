@@ -34,7 +34,7 @@ const Home = (props) => {
 	return (
 		<>
 			<div style={container}>
-				<h1 style={title}>Algo Views</h1>
+				<h1 style={title}>AlgoViews</h1>
 				<p style={subtitle}>This App was built to help you study and learn more on sorting algrithms</p>
         <br></br>
         <br></br>
